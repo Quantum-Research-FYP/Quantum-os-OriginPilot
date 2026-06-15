@@ -1,0 +1,180 @@
+{
+  "QuantumChipArch": {
+    "QubitCount": 3,
+    "HighFrequencyQubit": [
+      0,1,2
+    ],
+    "CompensateAngle": {
+      "CZ(1,2)": {
+        "1": 0.0,
+        "2": 0.0
+      },
+      "CZ(2,0)": {
+        "2": 0.0,
+        "0": 0.0
+      },
+      "CZ(0,1)": {
+        "0": 0.0,
+        "1": 0.0
+      }
+    },
+    "AdjMatrix": {
+      "0": [
+        {
+          "v": 1,
+          "w": 0.9739
+        },
+        {
+          "v": 2,
+          "w": 0.9447
+        }
+      ],
+      "1": [
+        {
+          "v": 2,
+          "w": 0.9739
+        },
+        {
+          "v": 0,
+          "w": 0.9447
+        }
+      ],
+      "2": [
+        {
+          "v": 1,
+          "w": 0.9739
+        },
+        {
+          "v": 0,
+          "w": 0.9447
+        }
+      ]
+    },
+    "QubitParams": {
+      "2": {
+        "Frequency": 4103.243,
+        "T1": 17.539,
+        "T2": 0.463,
+        "ReadoutFidelity": 0.8941,
+        "FidelityMat": [
+          [
+            0.938,
+            0.1498
+          ],
+          [
+            0.062,
+            0.8502
+          ]
+        ],
+        "SingleGateFidelity": 0.9985
+      },
+      "1": {
+        "Frequency": 4644,
+        "T1": 11.652,
+        "T2": 11.399,
+        "ReadoutFidelity": 0.9359,
+        "FidelityMat": [
+          [
+            0.974,
+            0.1022
+          ],
+          [
+            0.026,
+            0.8978
+          ]
+        ],
+        "SingleGateFidelity": 0.999
+      },
+      "0": {
+        "Frequency": 4264.136,
+        "T1": 61.226,
+        "T2": 644.519,
+        "ReadoutFidelity": 0.8972,
+        "FidelityMat": [
+          [
+            0.9332,
+            0.1388
+          ],
+          [
+            0.0668,
+            0.8612
+          ]
+        ],
+        "SingleGateFidelity": 0.9972
+      }
+    },
+    "AvailableQubits": [
+     0,1,2
+    ],
+    "QGateClock": {
+      "CZ": 40,
+      "RPhi": 30,
+      "ECHO": 0,
+      "IDLE": 0,
+      "BARRIER": 0
+    },
+    "BasicQGate": [
+      "CZ",
+      "RPhi"
+
+    ],
+    "LastUpdateTime": 1698912119077,
+    "MaxClockCycle": 100000000,
+    "MaxShots": 100000,
+    "calc_method": 0
+  },
+  "noise_model_double": {
+    "model": "DEPOLARIZING_KRAUS_OPERATOR",
+    "gate": "CZ_GATE",
+    "prob": [
+      0.002,
+      0.003
+    ]
+  },
+  "noise_model_single": {
+    "model": "DEPOLARIZING_KRAUS_OPERATOR",
+    "gate": "RPHI_GATE",
+    "prob": [
+      0.01,
+      0.002
+    ]
+  },
+  "noise_learning_config": {
+    "pattern": 0,
+    "file": "common_generator.py",
+    "samples": 40,
+    "nl_shots": 256,
+    "depths": [
+      2,
+      4,
+      8,
+      16,
+      32
+    ],
+    "qem_base_method": 0
+  },
+  "em_compute_config": {
+    "pattern": 0,
+    "file": "common_generator.py",
+    "samples": 10,
+    "nl_shots": 256,
+    "depths": [
+      2,
+      4,
+      8,
+      16,
+      32
+    ],
+    "qem_base_method": 0,
+    "qem_method": 0,
+    "noise_model_file": "common_PER_experiment.pkl",
+    "qem_samples": 300,
+    "qem_shots": 256,
+    "expectations": [],
+    "noise_strength": [
+      0.0,
+      1.0,
+      2.0
+    ]
+  }
+}

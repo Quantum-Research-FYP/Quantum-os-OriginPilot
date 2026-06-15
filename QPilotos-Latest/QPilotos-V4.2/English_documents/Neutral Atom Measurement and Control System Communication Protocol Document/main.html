@@ -1,0 +1,1023 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.20.1: https://docutils.sourceforge.io/" />
+<title>main.rst</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 8954 2022-01-20 10:10:25Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See https://docutils.sourceforge.io/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+.subscript {
+  vertical-align: sub;
+  font-size: smaller }
+
+.superscript {
+  vertical-align: super;
+  font-size: smaller }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+object[type="image/svg+xml"], object[type="application/x-shockwave-flash"] {
+  overflow: hidden;
+}
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title, .code .error {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left, table.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right, table.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table.align-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: inherit }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+.align-top    {
+  vertical-align: top }
+
+.align-middle {
+  vertical-align: middle }
+
+.align-bottom {
+  vertical-align: bottom }
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block, pre.math, pre.code {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+pre.code .ln { color: grey; } /* line numbers */
+pre.code, code { background-color: #eeeeee }
+pre.code .comment, code .comment { color: #5C6576 }
+pre.code .keyword, code .keyword { color: #3B0D06; font-weight: bold }
+pre.code .literal.string, code .literal.string { color: #0C5404 }
+pre.code .name.builtin, code .name.builtin { color: #352B84 }
+pre.code .deleted, code .deleted { background-color: #DEB0A1}
+pre.code .inserted, code .inserted { background-color: #A3D289}
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+/* "booktabs" style (no vertical lines) */
+table.docutils.booktabs {
+  border: 0px;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  border-collapse: collapse;
+}
+table.docutils.booktabs * {
+  border: 0px;
+}
+table.docutils.booktabs th {
+  border-bottom: thin solid;
+  text-align: left;
+}
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document">
+
+
+<div class="section" id="neutral-atom-measurement-and-control-system-communication-protocol-document">
+<h1>Neutral Atom Measurement and Control System Communication Protocol Document</h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">OriginQ</td>
+</tr>
+<tr class="field"><th class="field-name">Date:</th><td class="field-body">Today</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="communication-protocol">
+<h1>Communication Protocol</h1>
+<p>ZeroMQ + JSON message body.</p>
+<p>ZeroMQ is a mature and highly efficient third-party communication library that facilitates seamless communication between C++ and Python applications.</p>
+<p>ZeroMQ supports various working modes. Currently, the integration between the PilotOS system and the measurement and control system operates similarly to a remote procedure call; therefore, the &quot;Request-Reply model&quot; (Router-Dealer) is utilized here.</p>
+</div>
+<div class="section" id="message-definitions-router-dealer-mode">
+<h1>Message Definitions (Router-Dealer Mode)</h1>
+<div class="section" id="dispatch-computing-task">
+<h2>Dispatch Computing Task</h2>
+<p><strong>Function:</strong> This message is used by the PilotOS system to dispatch computing tasks to the measurement and control system.</p>
+<p><strong>Parameter Definitions:</strong>
+* <strong>MsgType</strong> (&quot;String&quot;): [Required] Message type, fixed as &quot;MsgTask&quot;.
+* <strong>SN</strong> (&quot;Uint32_t&quot;): [Required] Message sequence ID.
+* <strong>TaskId</strong> (&quot;String&quot;): [Required] Task ID.
+* <strong>ConvertQProg</strong> (&quot;String&quot;): [Required] Quantum program; the instructions to be executed by the measurement and control system (Neutral Atom platform specific format).
+* <strong>Configure.TaskPriority</strong> (&quot;Uint32_t&quot;): [Optional, Default: 0] Task priority. Currently supports 2 levels: 0 (normal task) and 1 (high priority).
+* <strong>Configure.Shot</strong> (&quot;Uint32_t&quot;): [Required] Number of repetitions (shots). Range: 100~10000; defaults to 1000 if the limit is exceeded.
+* <strong>Configure.IsExperiment</strong> (&quot;Bool&quot;): [Optional] Indicates if the task is in experiment mode. true: Experiment mode; false: Non-experiment mode (normal user task mode). If this field is empty, it defaults to normal user task mode.
+* <strong>Configure.ClockCycle</strong> (&quot;Uint32_t&quot;): [Optional] Execution timing sequence. Maximum circuit execution cycle, unit: microseconds. PilotOS automatically decides whether to pass this parameter based on the maximum execution cycle returned by the measurement and control system. For example, if the measurement and control system returns a normal execution cycle of 100us and a maximum of 500us for the current chip, and if a task's execution timing is greater than 100us but less than 500us, this parameter is adjusted according to the specific circuit timing; if the user circuit execution timing is less than 100us, this parameter does not need to be passed.
+* <strong>Configure.PointLabel</strong> (&quot;Uint32_t&quot;): [Required] Application factory label, tentatively set to 128.</p>
+<p><strong>Return Information:</strong>
+* <strong>MsgType</strong> (&quot;String&quot;): [Required] Message type, fixed as &quot;MsgTaskAck&quot;.
+* <strong>SN</strong> (&quot;Uint32_t&quot;): [Required] Message sequence ID.
+* <strong>ErrCode</strong> (&quot;Uint32_t&quot;): [Required] Error code.
+* <strong>ErrInfo</strong> (&quot;String&quot;): [Conditional] Error information. Can be empty if there are no errors; required if an error occurs.</p>
+<pre class="code text literal-block">
+{
+    &quot;MsgType&quot;:&quot;MsgTask&quot;,
+    &quot;SN&quot;:133,
+    &quot;TaskId&quot;:&quot;11D919FA044846F3B4DF453A827AE901&quot;,
+    &quot;ConvertQProg&quot;:&quot;Neutral Atom platform specific instruction format&quot;,
+    &quot;Configure&quot;:{
+        &quot;Shot&quot;:1000,
+        &quot;TaskPriority&quot;:1,
+        &quot;IsExperiment&quot;: true,
+        &quot;PointLabel&quot;:128
+    }
+}
+</pre>
+<pre class="code text literal-block">
+{
+    &quot;MsgType&quot;:&quot;MsgTaskAck&quot;,
+    &quot;SN&quot;:133,
+    &quot;ErrCode&quot;:2,
+    &quot;ErrInfo&quot;:&quot;configure error.&quot;
+}
+</pre>
+</div>
+<div class="section" id="task-status-query">
+<h2>Task Status Query</h2>
+<p><strong>Function:</strong> PilotOS sends a task status query to the measurement and control system to verify the current task computation state. When PilotOS fails to receive calculation results for an extended period, it uses this message to query the task status from the measurement and control system, preventing PilotOS from waiting indefinitely during abnormal conditions.</p>
+<p><strong>Parameter Definitions:</strong>
+* <strong>MsgType</strong> (&quot;String&quot;): [Required] Message type, fixed as &quot;TaskStatus&quot;.
+* <strong>SN</strong> (&quot;Uint32_t&quot;): [Required] Message sequence ID.
+* <strong>TaskId</strong> (&quot;String&quot;): [Required] Task ID.</p>
+<p><strong>Return Information:</strong>
+* <strong>MsgType</strong> (&quot;String&quot;): [Required] Message type, fixed as &quot;TaskStatusAck&quot;.
+* <strong>SN</strong> (&quot;Uint32_t&quot;): [Required] Message sequence ID.
+* <strong>TaskId</strong> (&quot;String&quot;): [Required] Task ID.
+* <strong>TaskStatus</strong> (&quot;Uint32_t&quot;): [Required] Task status, refer to the &quot;Type Definitions&quot; section.</p>
+<pre class="code text literal-block">
+{
+    &quot;MsgType&quot;:&quot;TaskStatus&quot;,
+    &quot;SN&quot;:10086,
+    &quot;TaskId&quot;:&quot;11D919FA044846F3B4DF453A827AE901&quot;
+}
+</pre>
+<pre class="code text literal-block">
+{
+    &quot;MsgType&quot;:&quot;TaskStatusAck&quot;,
+    &quot;SN&quot;:10086,
+    &quot;TaskId&quot;:&quot;11D919FA044846F3B4DF453A827AE901&quot;,
+    &quot;TaskStatus&quot;:3
+}
+</pre>
+</div>
+<div class="section" id="return-computing-results">
+<h2>Return Computing Results</h2>
+<p><strong>Function:</strong> The measurement and control system returns the computing results to the PilotOS system.</p>
+<p><strong>Parameter Definitions:</strong>
+* <strong>MsgType</strong> (&quot;String&quot;): [Required] Message type, fixed as &quot;MsgTaskResult&quot;.
+* <strong>SN</strong> (&quot;Uint32_t&quot;): [Required] Message sequence ID.
+* <strong>TaskId</strong> (&quot;String&quot;): [Required] Task ID.
+* <strong>ProbCount</strong> (&quot;Int Array&quot;): [Required] Collapse counts; the number of state collapses corresponding to each Key.
+* <strong>NoteTime.CompileTime</strong> (&quot;Int&quot;): [Required] Compilation time cost information, unit: ms.
+* <strong>NoteTime.PendingTime</strong> (&quot;Int&quot;): [Required] Queuing time cost information, unit: ms.
+* <strong>NoteTime.MeasureTime</strong> (&quot;Int&quot;): [Required] Measurement time cost information, unit: ms.
+* <strong>NoteTime.PostProcessTime</strong> (&quot;Int&quot;): [Required] Post-processing time cost information, unit: ms.
+* <strong>ErrCode</strong> (&quot;Uint32_t&quot;): [Required] Error code.
+* <strong>ErrInfo</strong> (&quot;String&quot;): [Conditional] Error information. Can be empty if there are no errors; required if an error occurs.</p>
+<p><strong>Return Information:</strong>
+* <strong>MsgType</strong> (&quot;String&quot;): [Required] Message type, fixed as &quot;MsgTaskResultAck&quot;.
+* <strong>SN</strong> (&quot;Uint32_t&quot;): [Required] Message sequence ID.
+* <strong>ErrCode</strong> (&quot;Uint32_t&quot;): [Required] Error code.
+* <strong>ErrInfo</strong> (&quot;String&quot;): [Conditional] Error information. Can be empty if there are no errors; required if an error occurs.</p>
+<pre class="code text literal-block">
+{
+    &quot;MsgType&quot;:&quot;MsgTaskResult&quot;,
+    &quot;SN&quot;:133,
+    &quot;TaskId&quot;:&quot;11D919FA044846F3B4DF453A827AE901&quot;,
+    &quot;#key&quot;:&quot;Quantum states are uniformly represented by hexadecimal strings&quot;,
+    &quot;Key&quot;: [[&quot;0x0&quot;,&quot;0x1&quot;],[&quot;0x0&quot;,&quot;0x1&quot;]],
+    &quot;ProbCount&quot;: [[111,656],[103,703]],
+    &quot;NoteTime&quot;:
+    {
+        &quot;CompileTime&quot;:1,
+        &quot;PendingTime&quot;:94,
+        &quot;MeasureTime&quot;:2306,
+        &quot;PostProcessTime&quot;:105
+    },
+    &quot;ErrCode&quot;:0,
+    &quot;ErrInfo&quot;:&quot;&quot;
+}
+</pre>
+<pre class="code text literal-block">
+{
+    &quot;MsgType&quot;:&quot;MsgTaskResultAck&quot;,
+    &quot;SN&quot;:133,
+    &quot;ErrCode&quot;:3,
+    &quot;ErrInfo&quot;:&quot;data error.&quot;
+}
+</pre>
+</div>
+<div class="section" id="heartbeat-message">
+<h2>Heartbeat Message</h2>
+<p><strong>Function:</strong> Used by the user to probe the connection status between PilotOS and the measurement and control system. The system service is maintained by the measurement and control system; PilotOS actively sends heartbeat packets, and upon receiving the heartbeat packet, the measurement system sends a heartbeat acknowledgment.</p>
+<p><strong>Parameter Definitions:</strong>
+* <strong>MsgType</strong> (&quot;String&quot;): [Required] Message type, fixed as &quot;MsgHeartbeat&quot;.
+* <strong>SN</strong> (&quot;Uint32_t&quot;): [Required] Heartbeat message sequence ID.
+* <strong>TimeStamp</strong> (&quot;Uint64_t&quot;): [Required] 64-bit integer timestamp, in milliseconds.
+* <strong>ChipID</strong> (&quot;Uint32_t&quot;): [Required] Chip name, e.g., 72.</p>
+<p><strong>Return Information:</strong>
+* <strong>MsgType</strong> (&quot;String&quot;): [Required] Message type, fixed as &quot;MsgHeartbeatAck&quot;.
+* <strong>SN</strong> (&quot;Uint32_t&quot;): [Required] Heartbeat message sequence ID.
+* <strong>backend</strong> (&quot;Uint32_t&quot;): [Required] Backend chip ID.
+* <strong>TimeStamp</strong> (&quot;Uint64_t&quot;): [Required] 64-bit integer timestamp, in milliseconds.
+* <strong>Topic</strong> (&quot;String&quot;): [Required] Subscribed message topic.</p>
+<pre class="code text literal-block">
+{
+    &quot;MsgType&quot;:&quot;MsgHeartbeat&quot;,
+    &quot;SN&quot;:133,
+    &quot;ChipID&quot;:72,
+    &quot;TimeStamp&quot;:1638769359507
+}
+</pre>
+<pre class="code text literal-block">
+{
+    &quot;MsgType&quot;:&quot;MsgHeartbeatAck&quot;,
+    &quot;SN&quot;:133,
+    &quot;backend&quot;:72,
+    &quot;TimeStamp&quot;:1638769359517,
+    &quot;Topic&quot;:&quot;Y4-231011-Design_Validation-72bit_300pin_V9.2.3_Base-3#_|_Y4-231011-Design_Validation-72bit_300pin_V9.2.3_Base-3#&quot;
+}
+</pre>
+</div>
+<div class="section" id="get-chip-calibration-time">
+<h2>Get Chip Calibration Time</h2>
+<p><strong>Function:</strong> The user actively fetches the timestamp of the last chip calibration performed by the measurement and control system. Returned by the measurement system.</p>
+<p><strong>Parameter Definitions:</strong>
+* <strong>MsgType</strong> (&quot;String&quot;): [Required] Message type, fixed as &quot;GetUpdateTime&quot;.
+* <strong>SN</strong> (&quot;Uint32_t&quot;): [Required] Message sequence ID.</p>
+<p><strong>Return Information:</strong>
+* <strong>MsgType</strong> (&quot;String&quot;): [Required] Message type, fixed as &quot;GetUpdateTimeAck&quot;.
+* <strong>SN</strong> (&quot;Uint32_t&quot;): [Required] Message sequence ID.
+* <strong>backend</strong> (&quot;Uint32_t&quot;): [Required] Backend chip ID.
+* <strong>LastUpdateTime.qubit</strong> (&quot;Uint32_t Array&quot;): [Required] Qubit names for the chip calibration timestamp (integer data).
+* <strong>LastUpdateTime.timeStamp</strong> (&quot;Uint64_t Array&quot;): [Required] Timestamps corresponding to the qubits (64-bit integer timestamp, in milliseconds).
+* <strong>ErrCode</strong> (&quot;Uint32_t&quot;): [Required] Error code.
+* <strong>ErrInfo</strong> (&quot;String&quot;): [Conditional] Error information. Can be empty if there are no errors; required if an error occurs.</p>
+<pre class="code text literal-block">
+{
+    &quot;MsgType&quot;:&quot;GetUpdateTime&quot;,
+    &quot;SN&quot;:133
+}
+</pre>
+<pre class="code text literal-block">
+{
+    &quot;MsgType&quot;:&quot;GetUpdateTimeAck&quot;,
+    &quot;SN&quot;:133,
+    &quot;backend&quot;:72,
+    &quot;LastUpdateTime&quot;:
+    {
+        &quot;qubit&quot;:[43,45,46,48,49,52,53,54,60],
+        &quot;timeStamp&quot;:[1687243363189,1687243363189,1687243363189,
+        1687243363189,1687243363189,1687243363189,
+        1687243363189,1687243363189,1687243363189]
+    },
+    &quot;ErrCode&quot;:0,
+    &quot;ErrInfo&quot;:&quot;&quot;
+}
+</pre>
+</div>
+<div class="section" id="get-rb-experimental-data">
+<h2>Get RB Experimental Data</h2>
+<p><strong>Function:</strong> The user actively fetches Randomized Benchmarking (RB) experimental data. Returned by the measurement system.</p>
+<p><strong>Parameter Definitions:</strong>
+* <strong>MsgType</strong> (&quot;String&quot;): [Required] Message type, fixed as &quot;GetRBData&quot;.
+* <strong>SN</strong> (&quot;Uint32_t&quot;): [Required] Message sequence ID.
+* <strong>ChipID</strong> (&quot;Uint32_t&quot;): [Required] Chip name, e.g., 72.</p>
+<p><strong>Return Information:</strong>
+* <strong>MsgType</strong> (&quot;String&quot;): [Required] Message type, fixed as &quot;GetRBDataAck&quot;.
+* <strong>SN</strong> (&quot;Uint32_t&quot;): [Required] Message sequence ID.
+* <strong>backend</strong> (&quot;Uint32_t&quot;): [Required] Backend chip ID.
+* <strong>SingleGateCircuitDepth</strong> (&quot;Uint32_t Array&quot;): [Required] Maximum circuit depth for the single-gate RB experiment.
+* <strong>DoubleGateCircuitDepth</strong> (&quot;Uint32_t Array&quot;): [Required] Maximum circuit depth for the double-gate RB experiment.
+* <strong>SingleGateFidelity</strong> (&quot;Object&quot;): [Required] Single-qubit fidelity (string-type map, where key is the qubit name and value is the corresponding fidelity).
+* <strong>DoubleGateFidelity</strong> (&quot;Object&quot;): [Required] Two-qubit fidelity (string-type map, where key is the qubit pair name and value is the corresponding fidelity).
+* <strong>ErrCode</strong> (&quot;Uint32_t&quot;): [Required] Error code.
+* <strong>ErrInfo</strong> (&quot;String&quot;): [Conditional] Error information. Can be empty if there are no errors; required if an error occurs.</p>
+<pre class="code text literal-block">
+{
+    &quot;MsgType&quot;:&quot;GetRBData&quot;,
+    &quot;SN&quot;:133,
+    &quot;ChipID&quot;:72
+}
+</pre>
+<pre class="code text literal-block">
+{
+    &quot;MsgType&quot;:&quot;GetRBDataAck&quot;,
+    &quot;SN&quot;:133,
+    &quot;backend&quot;:72,
+    &quot;SingleGateCircuitDepth&quot;:[50,50,50,50,50,50,50,50,50,50],
+    &quot;DoubleGateCircuitDepth&quot;:[0,50,50,50,50,50,50,0],
+    &quot;SingleGateFidelity&quot;:
+    {
+        &quot;qubit&quot;:[&quot;45&quot;,&quot;46&quot;,&quot;48&quot;,&quot;52&quot;],
+        &quot;fidelity&quot;:[0.9,0.9,0.9,0.9]
+    },
+    &quot;DoubleGateFidelity&quot;:
+    {
+        &quot;qubitPair&quot;:[&quot;45-46&quot;,&quot;46-52&quot;,&quot;48-54&quot;,&quot;52-53&quot;],
+         &quot;fidelity&quot;:[0.9,0.9,0.9,0.9]
+    },
+    &quot;ErrCode&quot;:0,
+    &quot;ErrInfo&quot;:&quot;&quot;
+}
+</pre>
+</div>
+<div class="section" id="get-chip-configuration-parameters">
+<h2>Get Chip Configuration Parameters</h2>
+<p><strong>Function:</strong> Fetches chip configuration parameters (JSON data), returned by the measurement and control system.</p>
+<p><strong>Parameter Definitions:</strong>
+* <strong>MsgType</strong> (&quot;String&quot;): [Required] Message type, fixed as &quot;GetChipConfig&quot;.
+* <strong>SN</strong> (&quot;Uint32_t&quot;): [Required] Message sequence ID.
+* <strong>ChipID</strong> (&quot;Uint32_t&quot;): [Required] Chip name, e.g., 72.</p>
+<p><strong>Return Information:</strong>
+* <strong>MsgType</strong> (&quot;String&quot;): [Required] Message type, fixed as &quot;GetChipConfigAck&quot;.
+* <strong>SN</strong> (&quot;Uint32_t&quot;): [Required] Message sequence ID.
+* <strong>backend</strong> (&quot;Uint32_t&quot;): [Required] Backend chip ID.
+* <strong>PointLabelList</strong> (&quot;Uint32_t Array&quot;): [Required] List of workspace modes supported by the current chip.
+* <strong>ChipConfig</strong> (&quot;String&quot;): [Required] Chip parameter JSON string.
+* <strong>ErrCode</strong> (&quot;Uint32_t&quot;): [Required] Error code.
+* <strong>ErrInfo</strong> (&quot;String&quot;): [Conditional] Error information. Can be empty if there are no errors; required if an error occurs.</p>
+<pre class="code text literal-block">
+{
+    &quot;MsgType&quot;:&quot;GetChipConfig&quot;,
+    &quot;SN&quot;:133,
+    &quot;ChipID&quot;:72
+}
+</pre>
+<pre class="code text literal-block">
+{
+    &quot;MsgType&quot;:&quot;GetChipConfigAck&quot;,
+    &quot;SN&quot;:133,
+    &quot;backend&quot;:72,
+    &quot;PointLabelList&quot;:[1,2],
+    &quot;ChipConfig&quot;:{
+      &quot;1&quot;:&quot;QuantumChipArch.json related configuration info&quot;,
+      &quot;2&quot;:&quot;QuantumChipArch.json related configuration info&quot;
+    },
+    &quot;ErrCode&quot;:0,
+    &quot;ErrInfo&quot;:&quot;&quot;
+}
+</pre>
+</div>
+<div class="section" id="request-specific-task-result">
+<h2>Request Specific Task Result</h2>
+<p><strong>Function:</strong> Used in abnormal scenarios where PilotOS fails to correctly receive the computing results returned by the measurement and control system, allowing PilotOS to actively request the computation result data for a specified task from the measurement system.</p>
+<p><strong>Parameter Definitions:</strong>
+* <strong>MsgType</strong> (&quot;String&quot;): [Required] Message type, fixed as &quot;GetTaskResult&quot;.
+* <strong>SN</strong> (&quot;Uint32_t&quot;): [Required] Message sequence ID.
+* <strong>TaskId</strong> (&quot;String&quot;): [Required] Task ID.</p>
+<p><strong>Return Information:</strong>
+The return result format is consistent with the return result format detailed in the &quot;2.3 Return Computing Results&quot; section, but the &quot;TaskResult&quot; and &quot;FidelityMat&quot; fields are removed.
+<strong>Note: The message sequence number in the returned result will be identical to the sequence number of the request message.</strong></p>
+<pre class="code text literal-block">
+{
+    &quot;MsgType&quot;:&quot;GetTaskResult&quot;,
+    &quot;SN&quot;:134,
+    &quot;TaskId&quot;:&quot;11D919FA044846F3B4DF453A827AE901&quot;
+}
+</pre>
+<pre class="code text literal-block">
+{
+    &quot;MsgType&quot;:&quot;MsgTaskResult&quot;,
+    &quot;SN&quot;:134,
+    &quot;TaskId&quot;:&quot;11D919FA044846F3B4DF453A827AE901&quot;,
+    &quot;#key&quot;:&quot;Quantum states are uniformly represented by hexadecimal strings&quot;,
+    &quot;Key&quot;: [[&quot;0x0&quot;,&quot;0x1&quot;],[&quot;0x0&quot;,&quot;0x1&quot;]],
+    &quot;ProbCount&quot;: [[111,656],[103,703]],
+    &quot;NoteTime&quot;:
+    {
+        &quot;CompileTime&quot;:1,
+        &quot;PendingTime&quot;:94,
+        &quot;MeasureTime&quot;:2306,
+        &quot;PostProcessTime&quot;:105
+    },
+    &quot;ErrCode&quot;:0,
+    &quot;ErrInfo&quot;:&quot;&quot;
+}
+</pre>
+</div>
+<div class="section" id="set-exclusive-vip-time">
+<h2>Set Exclusive VIP Time</h2>
+<p><strong>Function:</strong> Used in specific requirement scenarios where PilotOS configures an exclusive computing block, ensuring tasks submitted during this exclusive time window do not require queuing.</p>
+<p><strong>Parameter Definitions:</strong>
+* <strong>MsgType</strong> (&quot;String&quot;): [Required] Message type, fixed as &quot;SetVip&quot;.
+* <strong>SN</strong> (&quot;Uint32_t&quot;): [Required] Message sequence ID.
+* <strong>OffsetTime</strong> (&quot;Uint64_t&quot;): [Required] Offset time relative to the current system time (unit: seconds).
+* <strong>ExclusiveTime</strong> (&quot;Uint64_t&quot;): [Required] Duration of the exclusive time block (unit: seconds).</p>
+<p><strong>Return Information:</strong>
+* <strong>MsgType</strong> (&quot;String&quot;): [Required] Message type, fixed as &quot;SetVipAck&quot;.
+* <strong>SN</strong> (&quot;Uint32_t&quot;): [Required] Message sequence ID.
+* <strong>ErrCode</strong> (&quot;Uint32_t&quot;): [Required] Error code.
+* <strong>ErrInfo</strong> (&quot;String&quot;): [Conditional] Error information. Can be empty if there are no errors; required if an error occurs.</p>
+<pre class="code text literal-block">
+{
+    &quot;MsgType&quot;:&quot;SetVip&quot;,
+    &quot;SN&quot;:134,
+    &quot;OffsetTime&quot;:120,
+    &quot;ExclusiveTime&quot;:600
+}
+</pre>
+<pre class="code text literal-block">
+{
+    &quot;MsgType&quot;:&quot;SetVipAck&quot;,
+    &quot;SN&quot;:134,
+    &quot;ErrCode&quot;:0,
+    &quot;ErrInfo&quot;:&quot;&quot;
+}
+</pre>
+</div>
+<div class="section" id="release-exclusive-vip-time">
+<h2>Release Exclusive VIP Time</h2>
+<p><strong>Function:</strong> Used to release the exclusive computing block operation and restore normal mode after tasks within the exclusive VIP period are completed.</p>
+<p><strong>Parameter Definitions:</strong>
+* <strong>MsgType</strong> (&quot;String&quot;): [Required] Message type, fixed as &quot;ReleaseVip&quot;.
+* <strong>SN</strong> (&quot;Uint32_t&quot;): [Required] Message sequence ID.</p>
+<p><strong>Return Information:</strong>
+* <strong>MsgType</strong> (&quot;String&quot;): [Required] Message type, fixed as &quot;ReleaseVipAck&quot;.
+* <strong>SN</strong> (&quot;Uint32_t&quot;): [Required] Message sequence ID.
+* <strong>ErrCode</strong> (&quot;Uint32_t&quot;): [Required] Error code.
+* <strong>ErrInfo</strong> (&quot;String&quot;): [Conditional] Error information. Can be empty if there are no errors; required if an error occurs.</p>
+<pre class="code text literal-block">
+{
+    &quot;MsgType&quot;:&quot;ReleaseVip&quot;,
+    &quot;SN&quot;:135
+}
+</pre>
+<pre class="code text literal-block">
+{
+    &quot;MsgType&quot;:&quot;ReleaseVipAck&quot;,
+    &quot;SN&quot;:135,
+    &quot;ErrCode&quot;:0,
+    &quot;ErrInfo&quot;:&quot;&quot;
+}
+</pre>
+</div>
+</div>
+<div class="section" id="subscribe-messages-pub-sub-mode">
+<h1>Subscribe Messages (PUB-SUB Mode)</h1>
+<div class="section" id="task-status">
+<h2>Task Status</h2>
+<p><strong>Function:</strong> When the calculation phase of a task updates, the measurement system pushes real-time task status information.</p>
+<p><strong>Operation:</strong> Fixed as bytes: &quot;task_status&quot;.</p>
+<p><strong>Pushed Message Format:</strong>
+* <strong>MsgType</strong> (&quot;String&quot;): [Required] Message type, fixed as &quot;TaskStatus&quot;.
+* <strong>SN</strong> (&quot;Uint32_t&quot;): [Required] Message sequence ID.
+* <strong>TaskId</strong> (&quot;String&quot;): [Required] Task ID.
+* <strong>TaskStatus</strong> (&quot;Uint32_t&quot;): [Required] Task status, refer to the task status definitions.</p>
+<pre class="code text literal-block">
+{
+    &quot;MsgType&quot;:&quot;TaskStatus&quot;,
+    &quot;SN&quot;:0,
+     &quot;TaskId&quot;:&quot;11D919FA044846F3B4DF453A827AE901&quot;,
+    &quot;TaskStatus&quot;:3
+}
+</pre>
+</div>
+<div class="section" id="chip-configuration-update-flag">
+<h2>Chip Configuration Update Flag</h2>
+<p><strong>Function:</strong> After chip parameters change, the measurement and control integrated machine pushes a message notifying PilotOS that it can send a fetch request via Router-Dealer mode to query the latest chip configuration information.</p>
+<p><strong>Operation:</strong> Fixed as bytes: &quot;chip_update&quot;.</p>
+<p><strong>Pushed Message Format:</strong>
+* <strong>UpdateFlag</strong> (&quot;Bool&quot;): [Required] Update identifier.
+* <strong>LastUpdateTime</strong> (&quot;Uint64_t&quot;): [Required] Last update time.</p>
+<pre class="code text literal-block">
+{
+    &quot;UpdateFlag&quot;:true,
+    &quot;LastUpdateTime&quot;: 1705307288685
+}
+</pre>
+</div>
+<div class="section" id="chip-resource-status">
+<h2>Chip Resource Status</h2>
+<p><strong>Function:</strong> During task computation in multi-threading mode on the measurement and control integrated machine, whenever chip resources change (locked or released), the measurement and control service pushes detailed thread data to PilotOS (displaying the qubit usage of each measurement service thread); QPilot only needs to monitor the &quot;use_bits&quot; field for each thread (t0, t1, t2...).</p>
+<p><strong>Operation:</strong> Fixed as bytes: &quot;probe&quot;.</p>
+<p><strong>Pushed Message Format:</strong>
+* <strong>core_thread.t0</strong> (&quot;Object&quot;): [Required] Thread name of the measurement service.
+* <strong>core_thread.t0.use_bits</strong> (&quot;String Array&quot;): [Required] All qubits for the current thread.</p>
+<pre class="code text literal-block">
+{
+    &quot;inst_status&quot;: 1,
+    &quot;linked&quot;: 1,
+    &quot;timestamp&quot;: 1695182448.7963016,
+    &quot;scheduler&quot;: {
+        &quot;status&quot;: &quot;InitialState&quot;,
+        &quot;queue_len&quot;: 3
+    },
+    &quot;core_status&quot;: {
+        &quot;empty_thread&quot;: 3,
+        &quot;pause_read&quot;: 0,
+        &quot;thread_num&quot;: 5
+    },
+    &quot;core_thread&quot;: {
+        &quot;t0&quot;: {
+            &quot;status&quot;: &quot;waiting&quot;,
+            &quot;thread_id&quot;: &quot;t0&quot;,
+            &quot;task_id&quot;: &quot;650a6e6f197b42e9aeaad6d6&quot;,
+            &quot;start_time&quot;: 1695182447.5371444,
+            &quot;user&quot;: &quot;admin3&quot;,
+            &quot;env_bits&quot;: [
+                &quot;&lt;c45-46||0&gt;&quot;,
+                &quot;&lt;q62||0&gt;&quot;,
+                &quot;&lt;c40-46||0&gt;&quot;,
+                &quot;&lt;q59||1&gt;&quot;],
+            &quot;use_bits&quot;: [
+                &quot;q56&quot;,
+                &quot;q18&quot;,
+                &quot;q68&quot;,
+                &quot;q69&quot;,
+                &quot;q6&quot;,
+                &quot;q2&quot;,
+                &quot;q67&quot;]
+        },
+        &quot;t1&quot;: {
+            &quot;status&quot;: &quot;ready&quot;,
+            &quot;task_id&quot;: null,
+            &quot;start_time&quot;: null,
+            &quot;user&quot;: null,
+            &quot;env_bits&quot;: [],
+            &quot;use_bits&quot;: []
+        },
+        &quot;t2&quot;: {
+            &quot;status&quot;: &quot;ready&quot;,
+            &quot;task_id&quot;: null,
+            &quot;start_time&quot;: null,
+            &quot;user&quot;: null,
+            &quot;env_bits&quot;: [],
+            &quot;use_bits&quot;: []
+        },
+        &quot;t3&quot;: {
+            &quot;status&quot;: &quot;waiting&quot;,
+            &quot;thread_id&quot;: &quot;t3&quot;,
+            &quot;task_id&quot;: &quot;650a6e6e197b42e9aeaad6d0&quot;,
+            &quot;start_time&quot;: 1695182446.8370538,
+            &quot;user&quot;: &quot;admin3&quot;,
+            &quot;env_bits&quot;: [
+                &quot;&lt;q56||1&gt;&quot;,
+                &quot;&lt;c45-46||2&gt;&quot;,
+                &quot;&lt;q62||2&gt;&quot;,
+                &quot;&lt;c40-46||2&gt;&quot;,
+                &quot;&lt;c56-57||2&gt;&quot;,
+                &quot;&lt;c43-44||2&gt;&quot;,
+                &quot;&lt;c44-45||2&gt;&quot;
+            ],
+            &quot;use_bits&quot;: [
+                &quot;q59&quot;,
+                &quot;q30&quot;,
+                &quot;q50&quot;,
+                &quot;q33&quot;,
+                &quot;q47&quot;,
+                &quot;q19&quot;,
+                &quot;q38&quot;
+            ]
+        },
+        &quot;t4&quot;: {
+            &quot;status&quot;: &quot;ready&quot;,
+            &quot;task_id&quot;: null,
+            &quot;start_time&quot;: null,
+            &quot;user&quot;: null,
+            &quot;env_bits&quot;: [],
+            &quot;use_bits&quot;: []
+        }
+    }
+}
+</pre>
+</div>
+<div class="section" id="automatic-calibration-start-information">
+<h2>Automatic Calibration Start Information</h2>
+<p><strong>Function:</strong> During automatic calibration routines on the measurement and control integrated machine, it pushes calibration qubit information to PilotOS; the qubits undergoing calibration are unavailable during this time period.</p>
+<p><strong>Operation:</strong> Fixed as bytes: &quot;calibration_start&quot;.</p>
+<p><strong>Pushed Message Format:</strong>
+* <strong>qubits</strong> (&quot;String Array&quot;): [Required] Single-qubit information undergoing calibration.
+* <strong>couplers</strong> (&quot;String Array&quot;): [Required] Couplers.
+* <strong>pairs</strong> (&quot;String Array&quot;): [Required] Qubit pair information undergoing calibration.
+* <strong>discriminators</strong> (&quot;String Array&quot;): [Required] Discriminators.
+* <strong>point_label</strong> (&quot;Int&quot;): [Required] Used to indicate which label the current calibration is applied to.</p>
+<pre class="code text literal-block">
+{
+    &quot;config_flag&quot;: false,
+    &quot;qubits&quot;:[&quot;q0&quot;, &quot;q1&quot;, &quot;q2&quot;, &quot;q3&quot;],
+    &quot;couplers&quot;:[&quot;c0-1&quot;, &quot;c11-12&quot;, &quot;c2-3&quot;],
+    &quot;pairs&quot;: [&quot;q0q1&quot;, &quot;q2q3&quot;],
+    &quot;discriminators&quot;:[&quot;q0_01.bin&quot;, &quot;q1_01.bin&quot;, &quot;q2_01.bin&quot;, &quot;q3_01.bin&quot;],
+    &quot;point_label&quot;: 2
+}
+</pre>
+</div>
+<div class="section" id="automatic-calibration-end-information">
+<h2>Automatic Calibration End Information</h2>
+<p><strong>Function:</strong> Upon successful completion of the calibration, a completion message is pushed to PilotOS, and the qubits resume availability.</p>
+<p><strong>Operation:</strong> Fixed as bytes: &quot;calibration_done&quot;.</p>
+<p><strong>Pushed Message Format:</strong>
+* <strong>qubits</strong> (&quot;String Array&quot;): [Required] Calibrated single-qubit information.
+* <strong>couplers</strong> (&quot;String Array&quot;): [Required] Couplers.
+* <strong>pairs</strong> (&quot;String Array&quot;): [Required] Calibrated qubit pair information.
+* <strong>discriminators</strong> (&quot;String Array&quot;): [Required] Discriminators.</p>
+<pre class="code text literal-block">
+{
+    &quot;qubits&quot;:[&quot;q0&quot;, &quot;q1&quot;, &quot;q2&quot;, &quot;q3&quot;],
+    &quot;couplers&quot;:[&quot;c0-1&quot;, &quot;c11-12&quot;, &quot;c2-3&quot;],
+    &quot;pairs&quot;: [&quot;q0q1&quot;, &quot;q2q3&quot;],
+    &quot;discriminators&quot;:[&quot;q0&quot;, &quot;q1&quot;, &quot;q2&quot;, &quot;q3&quot;],
+    &quot;config_flag&quot;:true,
+    &quot;point_label&quot;: 2
+}
+</pre>
+</div>
+<div class="section" id="chip-maintenance-information">
+<h2>Chip Maintenance Information</h2>
+<p><strong>Function:</strong> Receives chip maintenance start and end notifications to implement automatic pausing in PilotOS. <strong>If the maintenance period exceeds 2 hours, PilotOS pushes an offline maintenance notification to the cloud platform; if the maintenance period does not exceed 2 hours, only PilotOS pauses, while the cloud platform remains online normally.</strong></p>
+<p><strong>Operation:</strong> Fixed as bytes: &quot;chip_protect&quot;.</p>
+<p><strong>Pushed Message Format:</strong>
+* <strong>ProtectFlag</strong> (&quot;Bool&quot;): [Required] Maintenance flag. true means maintenance started, false means maintenance ended.
+* <strong>DurativeTime</strong> (&quot;Uint64_t&quot;): [Required] Maintenance duration (unit: minutes).
+* <strong>LastTime</strong> (&quot;Uint64_t&quot;): [Required] Timestamp.</p>
+<pre class="code text literal-block">
+{
+  &quot;ProtectFlag&quot;:true,
+  &quot;DurativeTime&quot;:10,
+  &quot;LastTime&quot;:1705307288685
+}
+</pre>
+</div>
+</div>
+<div class="section" id="type-definitions">
+<h1>Type Definitions</h1>
+<div class="section" id="task-status-types">
+<h2>Task Status Types</h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head"><strong>Status Code</strong></th>
+<th class="head"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>0</td>
+<td>Unknown status</td>
+</tr>
+<tr><td>1</td>
+<td>Task is still queuing</td>
+</tr>
+<tr><td>2</td>
+<td>Task is running</td>
+</tr>
+<tr><td>3</td>
+<td>Cannot find corresponding task information</td>
+</tr>
+<tr><td>4</td>
+<td>Task computation failed</td>
+</tr>
+<tr><td>5</td>
+<td>Task computation completed</td>
+</tr>
+<tr><td>6</td>
+<td>Task resent</td>
+</tr>
+<tr><td>7</td>
+<td>Task is compiling</td>
+</tr>
+<tr><td>8</td>
+<td>Task compilation completed</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="error-code-types">
+<h2>Error Code Types</h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head"><strong>Error Code</strong></th>
+<th class="head"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>0</td>
+<td>No error</td>
+</tr>
+<tr><td>1</td>
+<td>Unknown error</td>
+</tr>
+<tr><td>2</td>
+<td>Computing task parameter error</td>
+</tr>
+<tr><td>3</td>
+<td>JSON error</td>
+</tr>
+<tr><td>4</td>
+<td>Task queue full (returned when PilotOS sends more than 200 tasks)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="instruction-definitions">
+<h1>Instruction Definitions</h1>
+<div class="section" id="supported-basic-gate-types-and-parameter-descriptions">
+<h2>Supported Basic Gate Types and Parameter Descriptions</h2>
+<p>The basic gate types for the Neutral Atom platform differ from those of the superconducting platform. The &quot;ConvertQProg&quot; field maintains a dedicated format for the Neutral Atom platform and is not forced to be consistent with the superconducting platform.</p>
+<p>Supported neutral atom gates include: U3, CZ, and other quantum gate operations specific to neutral atoms.</p>
+</div>
+</div>
+</div>
+</body>
+</html>

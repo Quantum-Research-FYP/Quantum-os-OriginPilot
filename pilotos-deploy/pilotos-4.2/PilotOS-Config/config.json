@@ -1,0 +1,343 @@
+{
+    "mysql": {
+        "host": "host.docker.internal",
+        "user": "root",
+        "password": "root123",
+        "db": "PilotOS_DB",
+        "port": 3306,
+        "keep_days": 30
+    },
+    "mongodb": {
+        "host": "host.docker.internal",
+        "port": 27017,
+        "user": "pilotos",
+        "password": "pilotos123",
+        "db": "PilotOS_DB",
+        "keep_days": 30
+    },
+    "redis": {
+        "nodeA": {
+            "host": "127.0.0.1",
+            "port": 6379
+        },
+        "nodeB": {
+            "host": "127.0.0.1",
+            "port": 6379
+        }
+    },
+    "chip": {
+        "V20": {
+            "backend_id": "V20",
+            "offset": 0,
+            "mold": 0,
+            "connection_mode": 1,
+            "topological_type": "rectangle",
+            "topology_rows": 2,
+            "topology_columns": 10,
+            "label_list": [
+                1
+            ],
+            "config_path": "./Config/ChipArchConfig_V20.json",
+            "aio_config": {
+                "ck_0": {
+                    "ctrl_qubits": [
+                        0,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7,
+                        8,
+                        9,
+                        10,
+                        11,
+                        12,
+                        13,
+                        14,
+                        15,
+                        16,
+                        17,
+                        18,
+                        19
+                    ],
+                    "server_addr": "192.168.2.3",
+                    "self_id": "client0",
+                    "server_port": 21101,
+                    "need_subscribe": false,
+                    "subscribe_addr": "tcp://192.168.2.3:8301",
+                    "subscribe_topic": ""
+                }
+            }
+        }
+    },
+    "precompile_single_task_size": 100,
+    "http_listen_port": 10080,
+    "precompile_multi_task_size": 20,
+    "max_appending_task_size": 2048,
+    "vqa_experiment_config_path": "./Config/VQAExperimentConfig.json",
+    "chip_simulate_delay_enabled": false,
+    "chip_simulate_theory_data": false,
+    "chip_simulate_fake_data": false,
+    "pilot_profiling_enabled": true,
+    "log_path": "../log/pilotos/",
+    "noise_model_double": {
+        "model": "DEPOLARIZING_KRAUS_OPERATOR",
+        "gate": "CZ_GATE",
+        "prob": [
+            0.01,
+            0.03
+        ]
+    },
+    "noise_model_single": {
+        "model": "DEPOLARIZING_KRAUS_OPERATOR",
+        "gate": "RPHI_GATE",
+        "prob": [
+            0.005,
+            0.015
+        ]
+    },
+    "cluster": {
+        "local_cluster": {
+            "backend_id": "200",
+            "mold": 2,
+            "max_sub_cir": 128,
+            "total_nodes": 1,
+            "cpus_per_node": 8,
+            "memory_per_node": 8
+        }
+    },
+    "logger_info": {
+        "console_level": 6,
+        "file_level": 0
+    },
+    "zmq_ipc": {
+        "type": "ipc",
+        "port": {
+            "_sys_call_": 65509
+        }
+    },
+    "state_info": {
+        "server_listen_ip": "127.0.0.1",
+        "server_listen_port": "6002",
+        "client_socket_timeout": 3,
+        "client_heartbeat_period": 5000
+    },
+    "sbatch": {
+        "J": "qvm",
+        "p": "debug",
+        "N": "1",
+        "ntasks_per_node": "1",
+        "c": "1",
+        "output": "/home/mpiuser/cloud/test/slurmout/slurm-%j.out",
+        "t": "72:00:00"
+    },
+    "distributed_server": {
+        "address": "0.0.0.0",
+        "port": 10086
+    },
+    "guard": {
+        "server_listen_ip": "127.0.0.1",
+        "server_listen_port": "6001",
+        "client_socket_timeout": 3,
+        "client_heartbeat_period": 5000,
+        "restart_policy": "off",
+        "force_start": false,
+        "server_check_interval": 15000,
+        "module_config": {
+            "BACKEND": [
+                "BackendServer",
+                "./log/BackendServer.out.txt",
+                false
+            ],
+            "OS_SERVER": [
+                "PilotOSServer",
+                "./log/PilotOSServer.out.txt",
+                false
+            ],
+            "SCHEDULE": [
+                "ScheduleServer",
+                "./log/ScheduleServer.out.txt",
+                false
+            ],
+            "COMPILER": [
+                "QCompileServer",
+                "./log/QCompileServer.out.txt",
+                false
+            ],
+            "RESOURCE_MANAGER": [
+                "ResourceManager",
+                "./log/ResourceManager.out.txt",
+                false
+            ],
+            "EmCompute": [
+                "EmCompute",
+                "./log/EmCompute.out.txt",
+                false
+            ]
+        }
+    },
+    "email": {
+        "username": "xx@xx.xx",
+        "pwd": "xx",
+        "server_url": "xx.xx.xx.com",
+        "port": "465",
+        "ssl_trust": "xx.xx.xx.com",
+        "recv_accounts": [
+        ]
+    },
+    "simulator": {
+        "id": "10070",
+        "router_port": 10070,
+        "pub_port": 10050,
+        "unique_name": "simulator",
+        "topic": "simulator_topic"
+    },
+    "monitor": {
+        "server_listen_port": 9002,
+        "check_time_interval": 30
+    },
+    "scheduler_tactic": {
+        "dynamic_priority": true
+    },
+    "qcloud_post_addr": {
+        "maintenance_addr": "http://192.168.2.3:31733/task/updateChipOnlineStatus.json",
+        "config_addr": "http://192.168.2.3:31733/task/updateChipConfig.json",
+        "calibration_addr": "http://192.168.2.3:31733/task/updateCalculateResource.json",
+        "fidelity_addr": "http://192.168.2.3:31733/task/updateChipFidelityData.json",
+        "task_num_addr": "http://192.168.2.3:31733/task/pushQueueNum.json",
+        "activate_addr": "https://qcloud.originqc.com.cn/api/license/authLicense.json",
+        "notice_enabled": true
+    },
+    "management_post_addr": {
+        "activate_addr": "http://localhost:8080/pilot/license/status"
+    },
+    "compile_time_limit": 3600,
+    "PilotServer": [
+        {
+            "name": "OSServer",
+            "port": 40007,
+            "address": "0.0.0.0",
+            "self_id": "OSServer",
+            "comm_mode": "ipc"
+        },
+        {
+            "name": "Scheduler",
+            "port": 40008,
+            "address": "0.0.0.0",
+            "self_id": "Scheduler",
+            "comm_mode": "ipc"
+        },
+        {
+            "name": "ResourceManager",
+            "port": 40009,
+            "address": "0.0.0.0",
+            "self_id": "ResourceManager",
+            "comm_mode": "ipc"
+        },
+        {
+            "name": "Compiler",
+            "port": 40010,
+            "address": "0.0.0.0",
+            "self_id": "Compiler",
+            "comm_mode": "ipc",
+            "listen_port4node": 54876,
+            "publish_port4node": 54877
+        },
+        {
+            "name": "Backend",
+            "port": 40011,
+            "address": "0.0.0.0",
+            "self_id": "Backend",
+            "comm_mode": "ipc"
+        },
+        {
+            "name": "Qst",
+            "port": 40012,
+            "address": "0.0.0.0",
+            "self_id": "Qst",
+            "comm_mode": "ipc",
+            "compute_server": true,
+            "sub_task_types": [
+                "QST_TASK",
+                "QST_DENSITY",
+                "FIDELITY"
+            ]
+        },
+        {
+            "name": "Expectation",
+            "port": 40013,
+            "address": "0.0.0.0",
+            "self_id": "Expectation",
+            "comm_mode": "ipc",
+            "compute_server": true,
+            "sub_task_types": [
+                "EXPECTATION"
+            ]
+        },
+        {
+            "name": "EmCompute",
+            "port": 40014,
+            "address": "0.0.0.0",
+            "self_id": "EmCompute",
+            "comm_mode": "ipc",
+            "compute_server": true,
+            "sub_task_types": [
+                "EM_COMPUTE",
+                "NOISE_LEARNING"
+            ]
+        },
+        {
+            "name": "M3Server",
+            "port": 40015,
+            "address": "0.0.0.0",
+            "self_id": "M3Server",
+            "comm_mode": "ipc"
+        },
+        {
+            "name": "Distributed",
+            "port": 40016,
+            "address": "0.0.0.0",
+            "self_id": "Distributed",
+            "comm_mode": "ipc",
+            "compute_server": true,
+            "sub_task_types": [
+                "DISTRIBUTED"
+            ]
+        },
+        {
+            "name": "Fidelity",
+            "port": 40017,
+            "address": "0.0.0.0",
+            "self_id": "Fidelity",
+            "comm_mode": "ipc",
+            "compute_server": true,
+            "sub_task_types": [
+                "SELF_FIDELITY"
+            ]
+        },
+        {
+            "name": "VQAServer",
+            "port": 40018,
+            "address": "0.0.0.0",
+            "self_id": "VQAServer",
+            "comm_mode": "ipc",
+            "compute_server": true,
+            "sub_task_types": [
+                "VQA_SERVER"
+            ]
+        },
+        {
+            "name": "VQCircuit",
+            "port": 40019,
+            "address": "0.0.0.0",
+            "self_id": "VQCircuit",
+            "comm_mode": "ipc",
+            "compute_server": true,
+            "sub_task_types": [
+                "VQCIRCUIT"
+            ]
+        }
+    ]
+}

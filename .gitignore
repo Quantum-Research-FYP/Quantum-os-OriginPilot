@@ -1,0 +1,18 @@
+# Python virtual environment
+venv/
+python_simulator/venv/
+
+# Pycache and temporary python files
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+**/*.pyd
+.pytest_cache/
+
+# Logs
+**/logs/
+**/*.log
+
+# OS metadata
+.DS_Store
+Thumbs.db

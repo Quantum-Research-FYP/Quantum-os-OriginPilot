@@ -1,0 +1,9 @@
+# Requirements for Quantum Simulation ZMQ Server
+
+# Core ZMQ library
+pyzmq>=23.0.0
+
+# For optional development (uncomment if needed)
+# pytest>=7.0.0
+# black>=22.0.0
+# flake8>=5.0.0

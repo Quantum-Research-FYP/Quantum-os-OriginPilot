@@ -1,0 +1,597 @@
+\documentclass[UTF8, a4paper, 12pt]{article}
+
+% Page settings
+\usepackage{geometry}
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% Required packages
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{float}
+
+% Link color settings
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=blue,
+    urlcolor=blue,
+    pdftitle={Quantum Simulation ZMQ Server Documentation},
+}
+
+% Code block style settings
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,               
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4,
+    frame=single, % Add frame to code blocks
+    extendedchars=true, 
+}
+
+\lstset{style=mystyle}
+
+% Title information
+\title{\textbf{Quantum Simulation ZMQ Server Documentation}}
+\author{OriginQ}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Project Introduction}
+
+This is a Python-implemented quantum computing simulation service that supports four types of quantum systems: Superconducting, Ion Trap, Neutral Atom, and Photonic. It is designed to be used in conjunction with the Origin PilotOS operating system. To use this service, please refer to the "Add Chip" feature in the PilotOS graphical interface; once the corresponding chip information is configured, the service will be ready for use.
+
+\section{Features}
+
+\begin{itemize}
+    \item \textbf{ZMQ Router-Dealer Mode}: Handles client requests and dispatches responses.
+    \item \textbf{ZMQ Pub-Sub Mode}: Pushes real-time status updates and notifications.
+    \item \textbf{Multi-Protocol Support}: Supports distinct protocols for four different quantum systems.
+    \item \textbf{Task Management}: Asynchronous task processing with status tracking.
+    \item \textbf{Status Publishing}: Automatically pushes task status updates via Pub-Sub.
+    \item \textbf{Random Result Generation}: Simulates quantum computing execution results.
+    \item \textbf{Port Range 7000-7010}: Router ports dedicated to client requests.
+    \item \textbf{Port Range 8000-8010}: Publisher ports dedicated to status updates.
+\end{itemize}
+
+\section{System Architecture}
+
+\begin{lstlisting}[language=bash, title=Directory Structure]
+PilotPy/python_simulator/
+├── config.py                 # Configuration and enumeration definitions
+├── result_generator.py       # Random result generator
+├── task_manager.py           # Task lifecycle management
+├── zmq_router_server.py      # Core ZMQ Router server
+├── zmq_pub_server.py         # ZMQ Pub server (status updates)
+├── main.py                   # Program entry point
+├── protocol_adapters/        # Protocol adapters
+│   ├── superconducting.py    # Superconducting protocol adapter
+│   ├── ion_trap.py           # Ion Trap protocol adapter
+│   ├── neutral_atom.py       # Neutral Atom protocol adapter
+│   └── photonic.py           # Photonic protocol adapter
+└── README_EN.md              # This file (Documentation)
+\end{lstlisting}
+
+\subsection{Communication Modes}
+
+The server utilizes two complementary ZMQ communication patterns:
+
+\subsubsection{1. Router-Dealer Mode (Request-Response)}
+\begin{itemize}
+    \item \textbf{Ports}: 7000-7003
+    \item \textbf{Purpose}: Handle client requests and return responses.
+    \item \textbf{Connection}: The client connects as a DEALER, and the server acts as a ROUTER.
+    \item \textbf{Characteristics}: Bidirectional communication.
+\end{itemize}
+
+\subsubsection{2. Pub-Sub Mode (Publish-Subscribe)}
+\begin{itemize}
+    \item \textbf{Ports}: 8000-8003
+    \item \textbf{Purpose}: Push status updates and notifications to subscribers.
+    \item \textbf{Connection}: The server acts as a PUBLISHER, and the client connects as a SUBSCRIBER.
+    \item \textbf{Characteristics}: Unidirectional push communication, real-time status updates.
+    \item \textbf{Message Structure}: Three-layer structure (Topic + Operation + Data).
+\end{itemize}
+
+\section{Installation Guide}
+
+\subsection{Environment Requirements}
+\begin{lstlisting}[language=bash]
+pip install pyzmq
+\end{lstlisting}
+
+\subsection{Python Version}
+\begin{itemize}
+    \item Python 3.8 or higher.
+\end{itemize}
+
+\section{Quick Start}
+
+\subsection{Start a Single Server}
+Start a specific quantum system server:
+
+\begin{lstlisting}[language=bash]
+# Start the Superconducting quantum server (Default port: 7000)
+python main.py --system superconducting
+
+# Start the Ion Trap quantum server (Default port: 7001)
+python main.py --system ion_trap
+
+# Start the Neutral Atom quantum server (Default port: 7002)
+python main.py --system neutral_atom
+
+# Start the Photonic quantum server (Default port: 7003)
+python main.py --system photonic
+\end{lstlisting}
+
+\subsection{Start All Servers}
+Simultaneously start all four quantum system servers:
+\begin{lstlisting}[language=bash]
+python main.py --all
+\end{lstlisting}
+
+\subsection{Server Startup (Automatically Includes Pub Server)}
+When starting a server, both the Router server and Pub server will launch automatically:
+\begin{lstlisting}[language=bash]
+python main.py --system superconducting
+\end{lstlisting}
+
+\textbf{Example Output:}
+\begin{lstlisting}
+============================================================
+Starting superconducting Quantum Simulation Server
+============================================================
+
+superconducting server is running
+  - Router Port: 7000
+  - Pub Port: 8000
+  - Bind Address: 0.0.0.0
+  - Log Level: INFO
+  - Thread Pool Size: 4
+  - Max Queue Size: 1000
+
+Press Ctrl+C to stop server
+\end{lstlisting}
+
+\subsection{Custom Configuration}
+\begin{lstlisting}[language=bash]
+# Custom port (Affects Router port only)
+python main.py --system superconducting --port 7005
+
+# Custom bind address
+python main.py --system superconducting --bind-address 192.168.1.100
+
+# Set log level
+python main.py --system superconducting --log-level DEBUG
+\end{lstlisting}
+
+\subsection{Command Line Arguments}
+\begin{lstlisting}
+--system {superconducting,ion_trap,neutral_atom,photonic}
+                        The type of quantum system to simulate
+--all                   Start all quantum system servers
+--port PORT             Override the default port
+--log-level {DEBUG,INFO,WARNING,ERROR}
+                        Set the log level (Default: INFO)
+--bind-address ADDRESS  Bind address (Default: *)
+\end{lstlisting}
+
+\section{Protocol Details}
+
+\subsection{1. Superconducting Quantum System}
+\begin{itemize}
+    \item \textbf{Router Port}: 7000
+    \item \textbf{Pub Port}: 8000
+\end{itemize}
+
+\textbf{Supported Message Types (Router):}
+\begin{itemize}
+    \item \texttt{MsgTask}: Submit a quantum computing task
+    \item \texttt{TaskStatus}: Query task status
+    \item \texttt{MsgHeartbeat}: Heartbeat check
+    \item \texttt{GetChipConfig}: Get chip configuration
+    \item \texttt{GetUpdateTime}: Get calibration time
+    \item \texttt{GetRBData}: Get Randomized Benchmarking (RB) data
+    \item \texttt{SetVip}: Set exclusive VIP time slot
+    \item \texttt{ReleaseVip}: Release exclusive VIP time slot
+\end{itemize}
+
+\textbf{Published Message Types (Pub):}
+\begin{itemize}
+    \item \texttt{task\_status}: Task status update (PENDING, RUNNING, SUCCESSED, FAILED)
+    \item \texttt{chip\_update}: Chip configuration update notification
+    \item \texttt{probe}: Chip resource status (Qubit usage, thread status)
+    \item \texttt{calibration\_start}: Calibration start notification
+    \item \texttt{calibration\_done}: Calibration completion notification
+    \item \texttt{chip\_protect}: Chip maintenance start/end notification
+\end{itemize}
+
+\textbf{Protocol Characteristics:} Flat JSON structure; supports task prioritization, experimental modes, VIP time slot management, and real-time status updates.
+
+\subsection{2. Ion Trap Quantum System}
+\begin{itemize}
+    \item \textbf{Router Port}: 7001
+    \item \textbf{Pub Port}: 8001
+\end{itemize}
+
+\textbf{Supported Message Types (Router):}
+\begin{itemize}
+    \item \texttt{MsgGetToken}: Get access token (Authentication)
+    \item \texttt{MsgUpdateToken}: Refresh access token
+    \item \texttt{MsgTask}: Submit a quantum computing task
+    \item \texttt{TaskStatus}: Query task status
+    \item \texttt{MsgHeartbeat}: Heartbeat check
+    \item \texttt{GetChipConfig}: Get chip configuration
+    \item \texttt{GetUpdateTime}: Get calibration time
+    \item \texttt{GetRBData}: Get Randomized Benchmarking (RB) data
+\end{itemize}
+
+\textbf{Published Message Types (Pub):} \texttt{task\_status}
+
+\textbf{Protocol Characteristics:} Header/Body JSON structure, token-based authentication mechanism, supports version fields and fidelity matrices.
+
+\subsection{3. Neutral Atom Quantum System}
+\begin{itemize}
+    \item \textbf{Router Port}: 7002
+    \item \textbf{Pub Port}: 8002
+\end{itemize}
+
+\textbf{Supported Message Types (Router):}
+\begin{itemize}
+    \item \texttt{MsgGetToken}: Get access token (Authentication)
+    \item \texttt{MsgTask}: Submit a quantum computing task
+    \item \texttt{MsgTaskStatus}: Query task status
+    \item \texttt{MsgHeartbeat}: Heartbeat check
+    \item \texttt{GetUpdateTime}: Get calibration time
+    \item \texttt{MsgAtomConfig}: Get atom configuration
+\end{itemize}
+
+\textbf{Published Message Types (Pub):} \texttt{task\_status}
+
+\textbf{Protocol Characteristics:} Header/Body JSON structure, token-based authentication mechanism, OPENQASM task format, custom result format (including grid and waveform).
+
+\subsection{4. Photonic Quantum System}
+\begin{itemize}
+    \item \textbf{Router Port}: 7003
+    \item \textbf{Pub Port}: 8003
+\end{itemize}
+
+\textbf{Supported Message Types (Router):}
+\begin{itemize}
+    \item \texttt{MsgTask}: Submit a quantum computing task
+    \item \texttt{TaskStatus}: Query task status
+    \item \texttt{MsgHeartbeat}: Heartbeat check
+    \item \texttt{GetChipConfig}: Get chip configuration
+\end{itemize}
+
+\textbf{Published Message Types (Pub):} \texttt{task\_status}
+
+\textbf{Protocol Characteristics:} Flat JSON structure, supports basic quantum gates, QASM-style task format.
+
+\section{Task Workflow}
+
+\subsection{1. Submit Task (Router)}
+\begin{lstlisting}[language=Python]
+{
+    "MsgType": "MsgTask",
+    "SN": 1,
+    "TaskId": "unique-task-id",
+    "ConvertQProg": "...",
+    "Configure": {
+        "Shot": 1000
+    }
+}
+\end{lstlisting}
+
+\subsection{2. Receive Acknowledgement (Router)}
+\begin{lstlisting}[language=Python]
+{
+    "MsgType": "MsgTaskAck",
+    "SN": 1,
+    "ErrCode": 0,
+    "ErrInfo": ""
+}
+\end{lstlisting}
+
+\subsection{3. Task Status Update (Pub)}
+Task statuses are automatically pushed via Pub-Sub:
+
+\textbf{PENDING} (After receiving the task):
+\begin{lstlisting}[language=Python]
+{
+    "MsgType": "TaskStatus",
+    "SN": 0,
+    "TaskId": "unique-task-id",
+    "TaskStatus": 1
+}
+\end{lstlisting}
+
+\textbf{RUNNING} (Processing):
+\begin{lstlisting}[language=Python]
+{
+    "MsgType": "TaskStatus",
+    "SN": 0,
+    "TaskId": "unique-task-id",
+    "TaskStatus": 2
+}
+\end{lstlisting}
+
+\textbf{SUCCESSED} (Completed):
+\begin{lstlisting}[language=Python]
+{
+    "MsgType": "TaskStatus",
+    "SN": 0,
+    "TaskId": "unique-task-id",
+    "TaskStatus": 5
+}
+\end{lstlisting}
+
+\subsection{4. Receive Result (Router)}
+\begin{lstlisting}[language=Python]
+{
+    "MsgType": "MsgTaskResult",
+    "SN": 1,
+    "TaskId": "unique-task-id",
+    "Key": [["0x0", "0x1"]],
+    "ProbCount": [[500, 500]],
+    "NoteTime": {
+        "CompileTime": 100,
+        "MeasureTime": 2000,
+        "PostProcessTime": 50
+    }
+}
+\end{lstlisting}
+
+\section{Configuration Instructions}
+
+\subsection{Server Configuration (config.py)}
+\begin{lstlisting}[language=Python]
+class ServerConfig:
+    # Network Settings
+    BIND_ADDRESS = "*"          # Bind to all network interfaces
+    TIMEOUT = 1000              # Socket timeout (milliseconds)
+    HWM = 1000                  # High Water Mark
+    
+    # Router Port Allocation
+    ROUTER_PORTS = {
+        QuantumSystemType.SUPERCONDUCTING: 7000,
+        QuantumSystemType.ION_TRAP: 7001,
+        QuantumSystemType.NEUTRAL_ATOM: 7002,
+        QuantumSystemType.PHOTONIC: 7003
+    }
+    
+    # Pub Port Allocation
+    PUB_PORTS = {
+        QuantumSystemType.SUPERCONDUCTING: 8000,
+        QuantumSystemType.ION_TRAP: 8001,
+        QuantumSystemType.NEUTRAL_ATOM: 8002,
+        QuantumSystemType.PHOTONIC: 8003
+    }
+    
+    # Performance Settings
+    THREAD_POOL_SIZE = 10       # Number of concurrent task worker threads
+    MAX_QUEUE_SIZE = 200        # Maximum number of pending tasks
+    
+    # Simulation Times (milliseconds)
+    COMPILE_TIME = 100          # Simulated compilation time
+    RUN_TIME = 2000             # Simulated execution time
+    POST_PROCESS_TIME = 50      # Simulated post-processing time
+    
+    # Logging Settings
+    LOG_LEVEL = "INFO"
+    LOG_FILE = "log/simulator.log"
+\end{lstlisting}
+
+\section{Task Status Enumerations and Error Codes}
+
+\subsection{Task Status Enumerations}
+\begin{lstlisting}[language=Python]
+class TaskStatus(Enum):
+    UNKNOW_STATE = 0      # Unknown state
+    PENDING = 1           # Task is queued
+    COMPILING = 7         # Task is compiling
+    COMPILED = 8          # Task compiled successfully
+    RUNNING = 2           # Task is running
+    SUCCESSED = 5         # Task completed successfully
+    FAILED = 4            # Task failed
+    NOTASK = 3            # Task does not exist
+    RETRY = 6             # Task retry
+    
+    # Specific to Neutral Atom
+    SUBMIT = 9            # Task submitted
+    FINISH = 10           # Task finished
+    CANCEL = 11           # Task cancelled
+    SUBMITFAIL = 12       # Submission failed
+    RUNFAIL = 13          # Execution failed
+    WAITING = 14          # Task waiting
+\end{lstlisting}
+
+\subsection{Error Codes}
+\begin{lstlisting}[language=Python]
+class ErrorCode(Enum):
+    NO_ERROR = 0                   # Success
+    UNDEFINED_ERROR = 1            # Unknown error
+    TASK_PARAM_ERROR = 2           # Task parameter error
+    JSON_ERROR = 3                 # JSON parsing error
+    QUEUE_FULL = 4                 # Queue is full
+    AUTH_ERROR = 5                 # Authentication error
+    TASK_ID_DUPLICATE = 10         # Duplicate Task ID
+    TASK_ID_NOT_EXIST = 40         # Task ID does not exist
+\end{lstlisting}
+
+\section{Client Examples}
+
+\subsection{Router-Dealer Client Example}
+\begin{lstlisting}[language=Python]
+import zmq
+import json
+
+# Connect to the Router server
+context = zmq.Context()
+socket = context.socket(zmq.DEALER)
+socket.connect("tcp://localhost:7000")
+
+# Submit a task
+task = {
+    "MsgType": "MsgTask",
+    "SN": 1,
+    "TaskId": "test-task-001",
+    "ConvertQProg": "[[{'H': [0]}, {'Measure': [[0]]}]]",
+    "Configure": {"Shot": 1000}
+}
+
+# Send the request
+socket.send_json(task)
+
+# Receive acknowledgement
+ack = socket.recv_json()
+print(f"ACK Message: {ack}")
+
+# Receive result (Asynchronous)
+result = socket.recv_json()
+print(f"Task Result: {result}")
+\end{lstlisting}
+
+\subsection{Pub-Sub Client Example}
+\begin{lstlisting}[language=Python]
+import zmq
+import json
+
+# Connect to the Pub server
+context = zmq.Context()
+socket = context.socket(zmq.SUB)
+socket.connect("tcp://localhost:8000")
+
+# Subscribe to the topic 'simulator_topic' to receive all messages
+socket.setsockopt_string(zmq.SUBSCRIBE, b'simulator_topic')
+
+# Receive status updates
+while True:
+    # Receive topic
+    topic = socket.recv()
+    
+    # Receive operation type
+    operation = socket.recv()
+    
+    # Receive data payload
+    data = socket.recv_json()
+    
+    print(f"Received Message: topic={topic}, operation={operation}")
+    print(f"Data: {data}")
+\end{lstlisting}
+
+\section{Testing}
+
+\subsection{Start All Servers}
+\begin{lstlisting}[language=bash]
+python main.py --all
+\end{lstlisting}
+
+\subsection{Use Test Client}
+\begin{lstlisting}[language=bash]
+python test_client.py
+\end{lstlisting}
+
+Test a specific server:
+\begin{lstlisting}[language=bash]
+# Test Superconducting server
+python test_client.py --port 7000
+
+# Test Ion Trap server
+python test_client.py --port 7001
+
+# Test all servers
+python test_client.py --all
+\end{lstlisting}
+
+\section{Logging}
+
+Logs are stored in the \texttt{log/} directory. Log levels include:
+\begin{itemize}
+    \item \textbf{DEBUG}: Detailed debugging information.
+    \item \textbf{INFO}: General informational messages (Default).
+    \item \textbf{WARNING}: Warning messages.
+    \item \textbf{ERROR}: Error messages only.
+\end{itemize}
+
+\section{Troubleshooting}
+
+\subsection{Port Already in Use}
+If you encounter the \texttt{Address already in use} error:
+\begin{lstlisting}[language=bash]
+# Find the process occupying the port
+lsof -i :7000
+lsof -i :8000
+
+# Terminate the process
+kill -9 <PID>
+\end{lstlisting}
+
+\subsection{Missing SN Field in Response}
+\textbf{Issue}: The response message does not contain the \texttt{SN} field or the \texttt{SN} value is incorrect.\\
+\textbf{Solution}: Ensure you are running the latest code version:
+\begin{lstlisting}[language=bash]
+git pull  # Fetch the latest changes
+python main.py --all  # Restart the server
+\end{lstlisting}
+
+\subsection{Token Refresh Failed (Ion Trap and Neutral Atom)}
+\textbf{Issue}: \texttt{MsgUpdateToken} returns an empty or invalid token.\\
+\textbf{Solution}:
+1. Ensure the \texttt{RefreshToken} is sent in the \texttt{Authorization} header.
+2. Verify that the refresh token was previously obtained via \texttt{MsgGetToken}.
+3. Verify that the token has not expired.
+
+\subsection{Task Status Not Published}
+\textbf{Issue}: The client does not receive task status updates via Pub-Sub.\\
+\textbf{Solution}:
+1. Verify that the Publisher server is running (Check ports 8000-8003).
+2. Ensure the subscriber has subscribed to the correct topic.
+3. Check if the firewall permits traffic on the Publisher server ports.
+
+\section{Pub-Sub Message Structure}
+
+The Publisher server uses a three-layer message structure:
+\begin{enumerate}
+    \item \textbf{Topic}: Fixed to \texttt{b'simulator\_topic'} for all messages.
+    \item \textbf{Operation}: The message type (e.g., \texttt{b'task\_status'}, \texttt{b'chip\_update'}).
+    \item \textbf{Data}: The JSON data payload.
+\end{enumerate}
+
+\section{License}
+This is a simulation server designed for development and testing purposes.
+
+\section{Technical Support}
+If you have any questions or issues, please refer to the specific protocol documentation:
+\begin{itemize}
+    \item Superconducting: \texttt{Superconducting\_Communication\_Protocol.md}
+    \item Ion Trap: \texttt{Ion\_Trap\_Communication\_Protocol.md}
+    \item Neutral Atom: \texttt{Neutral\_Atom\_Communication\_Protocol.md}
+    \item Photonic: \texttt{Photonic\_Communication\_Protocol.md}
+\end{itemize}
+
+\end{document}

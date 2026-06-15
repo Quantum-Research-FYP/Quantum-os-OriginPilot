@@ -1,0 +1,11 @@
+{
+	"server": {
+		"address": "127.0.0.1",
+		"listen_port": 54876,
+		"publish_port": 54877
+	},
+	"self_id": "myself",
+	"capasities": [225],
+	"timeout": 3600,
+	"period": 10
+}

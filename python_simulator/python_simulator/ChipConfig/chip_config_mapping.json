@@ -1,0 +1,64 @@
+{
+  "mappings": {
+    "72": {
+      "chip_id": "72",
+      "chip_name": "Superconducting_72",
+      "system_type": "superconducting",
+      "work_areas": {
+        "1": {
+          "config_file": "ChipArchConfig_72.json",
+          "description": "Default work area"
+        }
+      },
+      "default_work_area": "1"
+    },
+    "72_2": {
+      "chip_id": "72_2",
+      "chip_name": "Superconducting_72_2",
+      "system_type": "superconducting",
+      "work_areas": {
+        "1": {
+          "config_file": "ChipArchConfig_72.json",
+          "description": "Default work area"
+        }
+      },
+      "default_work_area": "1"
+    },
+    "HanYuan_01": {
+      "chip_id": "HanYuan_01",
+      "chip_name": "HanYuan_01",
+      "system_type": "neutral_atom",
+      "work_areas": {
+        "1": {
+          "config_file": "ChipArchConfig_HanYuan_01.json",
+          "description": "Default work area"
+        }
+      },
+      "default_work_area": "1"
+    },
+    "IonTrap": {
+      "chip_id": "IonTrap",
+      "chip_name": "IonTrap",
+      "system_type": "ion_trap",
+      "work_areas": {
+        "1": {
+          "config_file": "ChipArchConfig_IonTrap.json",
+          "description": "Default work area"
+        }
+      },
+      "default_work_area": "1"
+    },
+    "PQPUMESH8": {
+      "chip_id": "PQPUMESH8",
+      "chip_name": "PQPUMESH8",
+      "system_type": "photonic",
+      "work_areas": {
+        "1": {
+          "config_file": "ChipArchConfig_PQPUMESH8.json",
+          "description": "Default work area"
+        }
+      },
+      "default_work_area": "1"
+    }
+  }
+}

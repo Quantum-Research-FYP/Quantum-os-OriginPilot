@@ -1,0 +1,15 @@
+services:
+  pilotos:
+    image: pilotos:4.2
+    container_name: pilotos-server
+    ports:
+    - 10010:10080
+    - 10020:5000
+    - 10021:8080
+    volumes:
+    - ./PilotOS-Config:/home/PilotAdmin/PilotOS/Config
+    - ./PilotOS-Log:/home/PilotAdmin/log
+    - /opt/PilotOS-Upgrade:/home/PilotAdmin/Upgrade/
+    extra_hosts:
+    - host.docker.internal:host-gateway
+    restart: unless-stopped

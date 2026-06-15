@@ -1,0 +1,668 @@
+\documentclass[12pt, a4paper]{article}
+
+% Macro settings
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+% 如果您的文档中不再包含任何中文字符，请不要使用 ctex 宏包，这样 \tableofcontents 会自动生成英文的 "Contents"
+% \usepackage[UTF8]{ctex}     
+\usepackage{geometry}       % Page settings
+\usepackage{listings}       % Code blocks
+\usepackage{xcolor}         % Color support
+\usepackage{enumitem}       % List customization
+\usepackage{hyperref}       % Hyperlinks
+\usepackage{graphicx}       % Image support
+\usepackage{longtable}      % Long table support
+\usepackage{array}          % Table column format enhancement
+
+% Page margin settings
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% Code block style settings
+\lstset{
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    frame=single,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    backgroundcolor=\color{gray!5},
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!50!black},
+    stringstyle=\color{red},
+    showstringspaces=false,
+    tabsize=4,
+    captionpos=b,
+    escapeinside={(*@}{@*)} 
+}
+
+% Hyperlink settings
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,        % Set TOC links to black for a cleaner look
+    filecolor=magenta,      
+    urlcolor=blue,
+}
+
+% -----------------------------------------------------------
+% List style depth optimization
+% -----------------------------------------------------------
+\setlist[itemize]{
+    leftmargin=4em,    
+    labelsep=0.5em,    
+    nosep,             
+    itemsep=5pt        
+}
+
+\setlist[description]{
+    leftmargin=4em,    
+    labelindent=2em,   
+    nosep,
+    itemsep=5pt,
+    font=\bfseries     
+}
+% -----------------------------------------------------------
+
+\title{\textbf{Superconducting Quantum Chip Measurement and Control System Communication Protocol Document}}
+\author{OriginQ}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+% === Table of Contents ===
+\tableofcontents
+\newpage
+% =========================
+
+\section{Communication Protocol}
+
+ZeroMQ + JSON message body.
+
+ZeroMQ is a mature and highly efficient third-party communication library that facilitates seamless communication between C++ and Python applications.
+
+ZeroMQ supports various working modes. Currently, the integration between the PilotOS system and the measurement and control system operates similarly to a remote procedure call; therefore, the ``Request-Reply model'' (Router-Dealer) is utilized here.
+
+\section{Message Definitions (Router-Dealer Mode)}
+
+\subsection{Dispatch Computing Task}
+
+\textbf{Function:} This message is used by the PilotOS system to dispatch computing tasks to the measurement and control system.
+
+\textbf{Parameter Definitions:}
+\begin{itemize}
+    \item \textbf{MsgType} (\texttt{String}): [Required] Message type, fixed as \texttt{MsgTask}.
+    \item \textbf{SN} (\texttt{Uint32\_t}): [Required] Message sequence ID.
+    \item \textbf{TaskId} (\texttt{String}): [Required] Task ID.
+    \item \textbf{ConvertQProg} (\texttt{String}): [Required] Quantum program; the instructions to be executed by the measurement and control system.
+    \item \textbf{Configure.TaskPriority} (\texttt{Uint32\_t}): [Optional, Default: 0] Task priority. Currently supports 2 levels: 0 (normal task) and 1 (high priority).
+    \item \textbf{Configure.Shot} (\texttt{Uint32\_t}): [Required] Number of repetitions (shots). Range: 100$\sim$10000; defaults to 1000 if the limit is exceeded.
+    \item \textbf{Configure.IsExperiment} (\texttt{Bool}): [Optional] Indicates if the task is in experiment mode. true: Experiment mode; false: Non-experiment mode (normal user task). If this field is empty, it defaults to normal user task mode.
+    \item \textbf{Configure.ClockCycle} (\texttt{Uint32\_t}): [Optional] Execution timing sequence. Maximum circuit execution cycle, unit: microseconds. PilotOS automatically decides whether to pass this parameter based on the maximum execution cycle returned by the chip.
+    \item \textbf{Configure.PointLabel} (\texttt{Uint32\_t}): [Required] Application factory label, tentatively set to 128.
+\end{itemize}
+
+\textbf{Return Information:}
+\begin{itemize}
+    \item \textbf{MsgType} (\texttt{String}): [Required] Message type, fixed as \texttt{MsgTaskAck}.
+    \item \textbf{SN} (\texttt{Uint32\_t}): [Required] Message sequence ID.
+    \item \textbf{ErrCode} (\texttt{Uint32\_t}): [Required] Error code.
+    \item \textbf{ErrInfo} (\texttt{String}): [Conditional] Error information. Can be empty if there are no errors; required if an error occurs.
+\end{itemize}
+
+\noindent \textbf{Request Example:}
+\begin{lstlisting}[language=json]
+{
+    "MsgType":"MsgTask",
+    "SN":133,
+    "TaskId":"11D919FA044846F3B4DF453A827AE901",
+    "ConvertQProg":"QProg-instructions json-string.",
+    "Configure":{
+        "Shot":1000,
+        "TaskPriority":1,
+        "IsExperiment": true,
+        "PointLabel":128
+    }
+}
+\end{lstlisting}
+
+\noindent \textbf{Return Example:}
+\begin{lstlisting}[language=json]
+{
+    "MsgType":"MsgTaskAck",
+    "SN":133,
+    "ErrCode":2,
+    "ErrInfo":"configure error."
+}
+\end{lstlisting}
+
+\subsection{Task Status Query}
+
+\textbf{Function:} PilotOS sends a task status query to the measurement and control system to verify the current computation state. When PilotOS fails to receive calculation results for an extended period, it uses this message to check the task status, preventing PilotOS from waiting indefinitely during abnormal conditions.
+
+\textbf{Parameter Definitions:}
+\begin{itemize}
+    \item \textbf{MsgType} (\texttt{String}): [Required] Message type, fixed as \texttt{TaskStatus}.
+    \item \textbf{SN} (\texttt{Uint32\_t}): [Required] Message sequence ID.
+    \item \textbf{TaskId} (\texttt{String}): [Required] Task ID.
+\end{itemize}
+
+\textbf{Return Information:}
+\begin{itemize}
+    \item \textbf{MsgType} (\texttt{String}): [Required] Message type, fixed as \texttt{TaskStatusAck}.
+    \item \textbf{SN} (\texttt{Uint32\_t}): [Required] Message sequence ID.
+    \item \textbf{TaskId} (\texttt{String}): [Required] Task ID.
+    \item \textbf{TaskStatus} (\texttt{Uint32\_t}): [Required] Task status, refer to the "Type Definitions" section.
+\end{itemize}
+
+\noindent \textbf{Request Example:}
+\begin{lstlisting}[language=json]
+{
+    "MsgType":"TaskStatus",
+    "SN":10086,
+    "TaskId":"11D919FA044846F3B4DF453A827AE901"
+}
+\end{lstlisting}
+
+\noindent \textbf{Return Example:}
+\begin{lstlisting}[language=json]
+{
+    "MsgType":"TaskStatusAck",
+    "SN":10086,
+    "TaskId":"11D919FA044846F3B4DF453A827AE901",
+    "TaskStatus":3
+}
+\end{lstlisting}
+
+\subsection{Return Computing Results}
+
+\textbf{Function:} The measurement and control system returns the computing results to the PilotOS system.
+
+\textbf{Parameter Definitions:}
+\begin{itemize}
+    \item \textbf{MsgType} (\texttt{String}): [Required] Message type, fixed as \texttt{MsgTaskResult}.
+    \item \textbf{SN} (\texttt{Uint32\_t}): [Required] Message sequence ID.
+    \item \textbf{TaskId} (\texttt{String}): [Required] Task ID.
+    \item \textbf{ProbCount} (\texttt{Int Array}): [Required] Collapse counts; the number of state collapses corresponding to each Key.
+    \item \textbf{NoteTime.CompileTime} (\texttt{Int}): [Required] Compilation time cost, unit: ms.
+    \item \textbf{NoteTime.PendingTime} (\texttt{Int}): [Required] Queuing time cost, unit: ms.
+    \item \textbf{NoteTime.MeasureTime} (\texttt{Int}): [Required] Measurement time cost, unit: ms.
+    \item \textbf{NoteTime.PostProcessTime} (\texttt{Int}): [Required] Post-processing time cost, unit: ms.
+    \item \textbf{ErrCode} (\texttt{Uint32\_t}): [Required] Error code.
+    \item \textbf{ErrInfo} (\texttt{String}): [Conditional] Error information.
+\end{itemize}
+
+\textbf{Return Information:}
+\begin{itemize}
+    \item \textbf{MsgType} (\texttt{String}): [Required] Message type, fixed as \texttt{MsgTaskResultAck}.
+    \item \textbf{SN} (\texttt{Uint32\_t}): [Required] Message sequence ID.
+    \item \textbf{ErrCode} (\texttt{Uint32\_t}): [Required] Error code.
+    \item \textbf{ErrInfo} (\texttt{String}): [Conditional] Error information.
+\end{itemize}
+
+\noindent \textbf{Request Example:}
+\begin{lstlisting}[language=json]
+{
+    "MsgType":"MsgTaskResult",
+    "SN":133,
+    "TaskId":"11D919FA044846F3B4DF453A827AE901",
+    "#key":"Quantum states are uniformly represented by hexadecimal strings",
+    "Key": [["0x0","0x1"],["0x0","0x1"]],
+    "ProbCount": [[111,656],[103,703]],
+    "NoteTime":
+    {
+        "CompileTime":1,
+        "PendingTime":94,
+        "MeasureTime":2306,
+        "PostProcessTime":105
+    },
+    "ErrCode":0,
+    "ErrInfo":""
+}
+\end{lstlisting}
+
+\subsection{Heartbeat Message}
+
+\textbf{Function:} Used to probe the connection status between PilotOS and the measurement and control system. The service is maintained by the measurement system; PilotOS actively sends heartbeat packets, and upon receiving them, the measurement system returns a heartbeat acknowledgment.
+
+\textbf{Parameter Definitions:}
+\begin{itemize}
+    \item \textbf{MsgType} (\texttt{String}): [Required] Message type, fixed as \texttt{MsgHeartbeat}.
+    \item \textbf{SN} (\texttt{Uint32\_t}): [Required] Heartbeat message sequence ID.
+    \item \textbf{TimeStamp} (\texttt{Uint64\_t}): [Required] 64-bit integer timestamp, in milliseconds.
+    \item \textbf{ChipID} (\texttt{Uint32\_t}): [Required] Chip name, e.g., 72.
+\end{itemize}
+
+\textbf{Return Information:}
+\begin{itemize}
+    \item \textbf{MsgType} (\texttt{String}): [Required] Message type, fixed as \texttt{MsgHeartbeatAck}.
+    \item \textbf{SN} (\texttt{Uint32\_t}): [Required] Heartbeat message sequence ID.
+    \item \textbf{backend} (\texttt{Uint32\_t}): [Required] Backend chip ID.
+    \item \textbf{TimeStamp} (\texttt{Uint64\_t}): [Required] 64-bit integer timestamp, in milliseconds.
+    \item \textbf{Topic} (\texttt{String}): [Required] Subscribed message topic.
+\end{itemize}
+
+\noindent \textbf{Request Example:}
+\begin{lstlisting}[language=json]
+{
+    "MsgType":"MsgHeartbeat",
+    "SN":133,
+    "ChipID":72,
+    "TimeStamp":1638769359507
+}
+\end{lstlisting}
+
+\subsection{Get Chip Calibration Time}
+
+\textbf{Function:} The user actively fetches the timestamp of the last chip calibration performed by the measurement and control system. Returned by the measurement system.
+
+\textbf{Parameter Definitions:}
+\begin{itemize}
+    \item \textbf{MsgType} (\texttt{String}): [Required] Message type, fixed as \texttt{GetUpdateTime}.
+    \item \textbf{SN} (\texttt{Uint32\_t}): [Required] Message sequence ID.
+\end{itemize}
+
+\textbf{Return Information:}
+\begin{itemize}
+    \item \textbf{MsgType} (\texttt{String}): [Required] Message type, fixed as \texttt{GetUpdateTimeAck}.
+    \item \textbf{SN} (\texttt{Uint32\_t}): [Required] Message sequence ID.
+    \item \textbf{backend} (\texttt{Uint32\_t}): [Required] Backend chip ID.
+    \item \textbf{LastUpdateTime.qubit} (\texttt{Uint32\_t Array}): [Required] Qubit names for the chip calibration timestamp (integer data).
+    \item \textbf{LastUpdateTime.timeStamp} (\texttt{Uint64\_t Array}): [Required] Timestamps corresponding to the qubits (64-bit integer timestamp, in ms).
+    \item \textbf{ErrCode} (\texttt{Uint32\_t}): [Required] Error code.
+    \item \textbf{ErrInfo} (\texttt{String}): [Conditional] Error information.
+\end{itemize}
+
+\noindent \textbf{Request Example:}
+\begin{lstlisting}[language=json]
+{
+    "MsgType":"GetUpdateTime",
+    "SN":133
+}
+\end{lstlisting}
+
+\subsection{Get RB Experimental Data}
+
+\textbf{Function:} The user actively fetches Randomized Benchmarking (RB) experimental data. Returned by the measurement system.
+
+\textbf{Parameter Definitions:}
+\begin{itemize}
+    \item \textbf{MsgType} (\texttt{String}): [Required] Message type, fixed as \texttt{GetRBData}.
+    \item \textbf{SN} (\texttt{Uint32\_t}): [Required] Message sequence ID.
+    \item \textbf{ChipID} (\texttt{Uint32\_t}): [Required] Chip name, e.g., 72.
+\end{itemize}
+
+\textbf{Return Information:}
+\begin{itemize}
+    \item \textbf{MsgType} (\texttt{String}): [Required] Message type, fixed as \texttt{GetRBDataAck}.
+    \item \textbf{SN} (\texttt{Uint32\_t}): [Required] Message sequence ID.
+    \item \textbf{backend} (\texttt{Uint32\_t}): [Required] Backend chip ID.
+    \item \textbf{SingleGateCircuitDepth} (\texttt{Uint32\_t Array}): [Required] Maximum circuit depth for the single-gate RB experiment.
+    \item \textbf{DoubleGateCircuitDepth} (\texttt{Uint32\_t Array}): [Required] Maximum circuit depth for the double-gate RB experiment.
+    \item \textbf{SingleGateFidelity} (\texttt{Object}): [Required] Single-qubit fidelity (string-type map).
+    \item \textbf{DoubleGateFidelity} (\texttt{Object}): [Required] Two-qubit fidelity (string-type map).
+    \item \textbf{ErrCode} (\texttt{Uint32\_t}): [Required] Error code.
+    \item \textbf{ErrInfo} (\texttt{String}): [Conditional] Error information.
+\end{itemize}
+
+\noindent \textbf{Request Example:}
+\begin{lstlisting}[language=json]
+{
+    "MsgType":"GetRBData",
+    "SN":133,
+    "ChipID":72
+}
+\end{lstlisting}
+
+\subsection{Get Chip Configuration Parameters}
+
+\textbf{Function:} Fetches chip configuration parameters (JSON data), returned by the measurement system.
+
+\textbf{Parameter Definitions:}
+\begin{itemize}
+    \item \textbf{MsgType} (\texttt{String}): [Required] Message type, fixed as \texttt{GetChipConfig}.
+    \item \textbf{SN} (\texttt{Uint32\_t}): [Required] Message sequence ID.
+    \item \textbf{ChipID} (\texttt{Uint32\_t}): [Required] Chip name, e.g., 72.
+\end{itemize}
+
+\textbf{Return Information:}
+\begin{itemize}
+    \item \textbf{MsgType} (\texttt{String}): [Required] Message type, fixed as \texttt{GetChipConfigAck}.
+    \item \textbf{SN} (\texttt{Uint32\_t}): [Required] Message sequence ID.
+    \item \textbf{backend} (\texttt{Uint32\_t}): [Required] Backend chip ID.
+    \item \textbf{PointLabelList} (\texttt{Uint32\_t Array}): [Required] List of workspace modes supported by the current chip.
+    \item \textbf{ChipConfig} (\texttt{String}): [Required] Chip parameter JSON string.
+    \item \textbf{ErrCode} (\texttt{Uint32\_t}): [Required] Error code.
+    \item \textbf{ErrInfo} (\texttt{String}): [Conditional] Error information.
+\end{itemize}
+
+\noindent \textbf{Request Example:}
+\begin{lstlisting}[language=json]
+{
+    "MsgType":"GetChipConfig",
+    "SN":133,
+    "ChipID":72
+}
+\end{lstlisting}
+
+\subsection{Request Specific Task Result}
+
+\textbf{Function:} Used in abnormal scenarios where PilotOS fails to correctly receive the computing results from the measurement system. PilotOS actively requests the computation result data for a specified task.
+
+\textbf{Parameter Definitions:}
+\begin{itemize}
+    \item \textbf{MsgType} (\texttt{String}): [Required] Message type, fixed as \texttt{GetTaskResult}.
+    \item \textbf{SN} (\texttt{Uint32\_t}): [Required] Message sequence ID.
+    \item \textbf{TaskId} (\texttt{String}): [Required] Task ID.
+\end{itemize}
+
+\textbf{Return Information:}
+The return result format is consistent with the one detailed in the "2.3 Return Computing Results" section, but the \texttt{TaskResult} and \texttt{FidelityMat} fields are removed. \\
+Note: The message sequence number in the returned result will be identical to the sequence number of the request message.
+
+\noindent \textbf{Request Example:}
+\begin{lstlisting}[language=json]
+{
+    "MsgType":"GetTaskResult",
+    "SN":134,
+    "TaskId":"11D919FA044846F3B4DF453A827AE901"
+}
+\end{lstlisting}
+
+\subsection{Set Exclusive VIP Time}
+
+\textbf{Function:} Used in specific scenarios where PilotOS configures an exclusive computing block, ensuring tasks submitted during this window do not require queuing.
+
+\textbf{Parameter Definitions:}
+\begin{itemize}
+    \item \textbf{MsgType} (\texttt{String}): [Required] Message type, fixed as \texttt{SetVip}.
+    \item \textbf{SN} (\texttt{Uint32\_t}): [Required] Message sequence ID.
+    \item \textbf{OffsetTime} (\texttt{Uint64\_t}): [Required] Offset time relative to the current system time (unit: seconds).
+    \item \textbf{ExclusiveTime} (\texttt{Uint64\_t}): [Required] Duration of the exclusive time block (unit: seconds).
+\end{itemize}
+
+\textbf{Return Information:}
+\begin{itemize}
+    \item \textbf{MsgType} (\texttt{String}): [Required] Message type, fixed as \texttt{SetVipAck}.
+    \item \textbf{SN} (\texttt{Uint32\_t}): [Required] Message sequence ID.
+    \item \textbf{ErrCode} (\texttt{Uint32\_t}): [Required] Error code.
+    \item \textbf{ErrInfo} (\texttt{String}): [Conditional] Error information.
+\end{itemize}
+
+\noindent \textbf{Request Example:}
+\begin{lstlisting}[language=json]
+{
+    "MsgType":"SetVip",
+    "SN":134,
+    "OffsetTime":120,
+    "ExclusiveTime":600
+}
+\end{lstlisting}
+
+\subsection{Release Exclusive VIP Time}
+
+\textbf{Function:} Used to release the exclusive computing block operation and restore normal mode after tasks within the exclusive VIP period are completed.
+
+\textbf{Parameter Definitions:}
+\begin{itemize}
+    \item \textbf{MsgType} (\texttt{String}): [Required] Message type, fixed as \texttt{ReleaseVip}.
+    \item \textbf{SN} (\texttt{Uint32\_t}): [Required] Message sequence ID.
+\end{itemize}
+
+\textbf{Return Information:}
+\begin{itemize}
+    \item \textbf{MsgType} (\texttt{String}): [Required] Message type, fixed as \texttt{ReleaseVipAck}.
+    \item \textbf{SN} (\texttt{Uint32\_t}): [Required] Message sequence ID.
+    \item \textbf{ErrCode} (\texttt{Uint32\_t}): [Required] Error code.
+    \item \textbf{ErrInfo} (\texttt{String}): [Conditional] Error information.
+\end{itemize}
+
+\noindent \textbf{Request Example:}
+\begin{lstlisting}[language=json]
+{
+    "MsgType":"ReleaseVip",
+    "SN":135
+}
+\end{lstlisting}
+
+
+\section{Subscribe Messages (PUB-SUB Mode)}
+
+\subsection{Task Status}
+
+\textbf{Function:} When the calculation phase of a task updates, the measurement system pushes real-time task status info.
+
+\textbf{Operation}: Fixed as bytes: \texttt{task\_status}.
+
+\textbf{Pushed Message Format:}
+\begin{itemize}
+    \item \textbf{MsgType} (\texttt{String}): [Required] Message type, fixed as \texttt{TaskStatus}.
+    \item \textbf{SN} (\texttt{Uint32\_t}): [Required] Message sequence ID.
+    \item \textbf{TaskId} (\texttt{String}): [Required] Task ID.
+    \item \textbf{TaskStatus} (\texttt{Uint32\_t}): [Required] Task status, refer to the task status definitions.
+\end{itemize}
+
+\noindent \textbf{Example:}
+\begin{lstlisting}[language=json]
+{
+    "MsgType":"TaskStatus",
+    "SN":0,
+    "TaskId":"11D919FA044846F3B4DF453A827AE901",
+    "TaskStatus":3
+}
+\end{lstlisting}
+
+\subsection{Chip Configuration Update Flag}
+
+\textbf{Function:} After chip parameters change, the measurement system pushes a message notifying PilotOS that it can send a fetch request via Router-Dealer mode to query the updated chip configuration info.
+
+\textbf{Operation}: Fixed as bytes: \texttt{chip\_update}.
+
+\textbf{Pushed Message Format:}
+\begin{itemize}
+    \item \textbf{UpdateFlag} (\texttt{Bool}): [Required] Update identifier.
+    \item \textbf{LastUpdateTime} (\texttt{Uint64\_t}): [Required] Last update timestamp.
+\end{itemize}
+
+\noindent \textbf{Example:}
+\begin{lstlisting}[language=json]
+{
+    "UpdateFlag":true,
+    "LastUpdateTime": 1705307288685
+}
+\end{lstlisting}
+
+\subsection{Chip Resource Status}
+
+\textbf{Function:} During task computation in multi-threading mode, whenever chip resources change (locked or released), the measurement service pushes detailed thread data to PilotOS (displaying the qubit usage of each measurement thread). QPilot only needs to monitor the \texttt{use\_bits} field for each thread (t0, t1, t2...).
+
+\textbf{Operation}: Fixed as bytes: \texttt{probe}.
+
+\textbf{Pushed Message Format:}
+\begin{itemize}
+    \item \textbf{core\_thread.t0} (\texttt{Object}): [Required] Thread name of the measurement service.
+    \item \textbf{core\_thread.t0.use\_bits} (\texttt{String Array}): [Required] All qubits currently utilized by the thread.
+\end{itemize}
+
+\noindent \textbf{Example:}
+\begin{lstlisting}[language=json]
+{
+    "inst_status": 1,
+    "linked": 1,
+    "timestamp": 1695182448.7963016,
+    "scheduler": { "status": "InitialState", "queue_len": 3 },
+    "core_status": { "empty_thread": 3, "pause_read": 0, "thread_num": 5 },
+    "core_thread": {
+        "t0": {
+            "status": "waiting",
+            "thread_id": "t0",
+            "task_id": "650a6e6f197b42e9aeaad6d6",
+            "start_time": 1695182447.5371444,
+            "user": "admin3",
+            "use_bits": ["q56", "q18", "q68", "q69", "q6", "q2", "q67"]
+        },
+        "t1": { "status": "ready", "use_bits": [] }
+    }
+}
+\end{lstlisting}
+
+\subsection{Automatic Calibration Start Information}
+
+\textbf{Function:} During automatic calibration routines, the measurement system pushes calibration qubit info to PilotOS; the qubits undergoing calibration are marked unavailable during this period.
+
+\textbf{Operation}: Fixed as bytes: \texttt{calibration\_start}.
+
+\textbf{Pushed Message Format:}
+\begin{itemize}
+    \item \textbf{qubits} (\texttt{String Array}): [Required] Single-qubit info undergoing calibration.
+    \item \textbf{couplers} (\texttt{String Array}): [Required] Couplers.
+    \item \textbf{pairs} (\texttt{String Array}): [Required] Qubit pair info undergoing calibration.
+    \item \textbf{discriminators} (\texttt{String Array}): [Required] Discriminators.
+    \item \textbf{point\_label} (\texttt{Int}): [Required] Indicates which label the current calibration is applied to.
+\end{itemize}
+
+\subsection{Automatic Calibration End Information}
+
+\textbf{Function:} Upon successful completion of the calibration, a completion message is pushed to PilotOS, and the qubits become available again.
+
+\textbf{Operation}: Fixed as bytes: \texttt{calibration\_done}.
+
+\textbf{Pushed Message Format:}
+\begin{itemize}
+    \item \textbf{qubits} (\texttt{String Array}): [Required] Calibrated single-qubit info.
+    \item \textbf{couplers} (\texttt{String Array}): [Required] Couplers.
+    \item \textbf{pairs} (\texttt{String Array}): [Required] Calibrated qubit pair info.
+    \item \textbf{discriminators} (\texttt{String Array}): [Required] Discriminators.
+\end{itemize}
+
+\subsection{Chip Maintenance Information}
+
+\textbf{Function:} Receives chip maintenance start and end notifications to trigger automatic pausing in PilotOS. If the maintenance period exceeds 2 hours, PilotOS pushes an offline maintenance notification to the cloud platform; if it is under 2 hours, only PilotOS pauses, while the cloud platform remains online normally.
+
+\textbf{Operation}: Fixed as bytes: \texttt{chip\_protect}.
+
+\textbf{Pushed Message Format:}
+\begin{itemize}
+    \item \textbf{ProtectFlag} (\texttt{Bool}): [Required] Maintenance flag. true means maintenance started, false means maintenance ended.
+    \item \textbf{DurativeTime} (\texttt{Uint64\_t}): [Required] Maintenance duration (unit: minutes).
+    \item \textbf{LastTime} (\texttt{Uint64\_t}): [Required] Timestamp.
+\end{itemize}
+
+
+\section{Type Definitions}
+
+\subsection{Task Status Types}
+
+\begin{center}
+\begin{longtable}{|c|p{12cm}|}
+\hline
+\textbf{Status Code} & \textbf{Description} \\ \hline
+\endhead
+0 & Unknown status \\ \hline
+1 & Task is still queuing \\ \hline
+2 & Task is running \\ \hline
+3 & Cannot find corresponding task information \\ \hline
+4 & Task computation failed \\ \hline
+5 & Task computation completed \\ \hline
+6 & Task resent \\ \hline
+7 & Task is compiling \\ \hline
+8 & Task compilation completed \\ \hline
+\end{longtable}
+\end{center}
+
+\subsection{Error Code Types}
+
+\begin{center}
+\begin{longtable}{|c|p{12cm}|}
+\hline
+\textbf{Error Code} & \textbf{Description} \\ \hline
+\endhead
+0 & No error \\ \hline
+1 & Unknown error \\ \hline
+2 & Computing task parameter error \\ \hline
+3 & JSON error \\ \hline
+4 & Task queue full (returned when PilotOS sends more than 200 tasks) \\ \hline
+\end{longtable}
+\end{center}
+
+
+\section{Instruction Definitions}
+
+\subsection{Supported Basic Gate Types and Parameter Descriptions}
+
+\begin{itemize}
+    \item \textbf{RPhi} (Single Gate)
+    \begin{itemize}
+        \item \textbf{qubit} (\texttt{uint32\_t}): Target qubit
+        \item \textbf{axis} (\texttt{double}): Rotation axis phase
+        \item \textbf{angle} (\texttt{double}): Rotation angle theta
+        \item \textbf{order} (\texttt{uint32\_t}): Timing sequence
+    \end{itemize}
+    
+    \item \textbf{ECHO} (Single Gate)
+    \begin{itemize}
+        \item \textbf{qubit} (\texttt{uint32\_t}): Target qubit
+        \item \textbf{order} (\texttt{uint32\_t}): Timing sequence
+    \end{itemize}
+    
+    \item \textbf{IDLE} (Single Gate)
+    \begin{itemize}
+        \item \textbf{qubit} (\texttt{uint32\_t}): Target qubit
+        \item \textbf{delay} (\texttt{uint32\_t}): Delay, variable, affects subsequent gate timing
+        \item \textbf{order} (\texttt{uint32\_t}): Timing sequence
+    \end{itemize}
+    
+    \item \textbf{CZ} (Double Gate)
+    \begin{itemize}
+        \item \textbf{qubit} (\texttt{uint32\_t}): Target qubit
+        \item \textbf{ctrl} (\texttt{uint32\_t}): Control qubit
+        \item \textbf{order} (\texttt{uint32\_t}): Timing sequence
+    \end{itemize}
+\end{itemize}
+
+\subsection{Instruction Format}
+
+The instruction format utilizes nested JSON array objects. The innermost gate object contains a combination of a basic gate described in Section 5.1 with its parameters, plus a Measure gate object, formatted as follows:
+
+\begin{lstlisting}[language=json]
+{"Gate": [Qubit..., Other parameters..., Execution sequence]}
+\end{lstlisting}
+
+The Measure gate object is formatted as follows:
+
+\begin{lstlisting}[language=json]
+{"Measure": [[Qubit...], Execution sequence]}
+\end{lstlisting}
+
+A complete single-circuit instruction is generally composed of multiple basic gate objects and a Measure gate object wrapped within a JSON array, formatted as follows:
+
+\begin{lstlisting}[language=json]
+[
+    {"Gate0": [Qubit..., Other parameters..., Execution sequence]},
+    {"Gate1": [Qubit..., Other parameters..., Execution sequence]},
+    ...
+    {"Gaten": [Qubit..., Other parameters..., Execution sequence]},
+    {"Measure": [[Qubit...], Execution sequence]}
+]
+\end{lstlisting}
+
+A task is usually composed of instructions from multiple circuits, which means a collection of the single-circuit instructions mentioned above. A complete instruction for a task is formatted as follows:
+
+\begin{lstlisting}[language=json]
+[
+    [
+        {"Gate0": [Qubit..., Other parameters..., Execution sequence]},
+        {"Gate1": [Qubit..., Other parameters..., Execution sequence]},
+        ...
+        {"Measure": [[Qubit...], Execution sequence]}
+    ],
+    ...
+    [
+        {"Gate0": [Qubit..., Other parameters..., Execution sequence]},
+        {"Gate1": [Qubit..., Other parameters..., Execution sequence]},
+        ...
+        {"Measure": [[Qubit...], Execution sequence]}
+    ]
+]
+\end{lstlisting}
+
+\end{document}

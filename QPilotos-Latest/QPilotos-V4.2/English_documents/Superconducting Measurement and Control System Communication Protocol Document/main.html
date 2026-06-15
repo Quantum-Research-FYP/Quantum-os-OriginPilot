@@ -1,0 +1,881 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.20.1: https://docutils.sourceforge.io/" />
+<title>main.rst</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 8954 2022-01-20 10:10:25Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See https://docutils.sourceforge.io/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+.subscript {
+  vertical-align: sub;
+  font-size: smaller }
+
+.superscript {
+  vertical-align: super;
+  font-size: smaller }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+object[type="image/svg+xml"], object[type="application/x-shockwave-flash"] {
+  overflow: hidden;
+}
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title, .code .error {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left, table.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right, table.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table.align-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: inherit }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+.align-top    {
+  vertical-align: top }
+
+.align-middle {
+  vertical-align: middle }
+
+.align-bottom {
+  vertical-align: bottom }
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block, pre.math, pre.code {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+pre.code .ln { color: grey; } /* line numbers */
+pre.code, code { background-color: #eeeeee }
+pre.code .comment, code .comment { color: #5C6576 }
+pre.code .keyword, code .keyword { color: #3B0D06; font-weight: bold }
+pre.code .literal.string, code .literal.string { color: #0C5404 }
+pre.code .name.builtin, code .name.builtin { color: #352B84 }
+pre.code .deleted, code .deleted { background-color: #DEB0A1}
+pre.code .inserted, code .inserted { background-color: #A3D289}
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+/* "booktabs" style (no vertical lines) */
+table.docutils.booktabs {
+  border: 0px;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  border-collapse: collapse;
+}
+table.docutils.booktabs * {
+  border: 0px;
+}
+table.docutils.booktabs th {
+  border-bottom: thin solid;
+  text-align: left;
+}
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document">
+
+
+<div class="section" id="superconducting-quantum-chip-measurement-and-control-system-communication-protocol-document">
+<h1>Superconducting Quantum Chip Measurement and Control System Communication Protocol Document</h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">OriginQ</td>
+</tr>
+<tr class="field"><th class="field-name">Date:</th><td class="field-body">Today</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="communication-protocol">
+<h1>Communication Protocol</h1>
+<p>ZeroMQ + JSON message body.</p>
+<p>ZeroMQ is a mature and highly efficient third-party communication library that facilitates seamless communication between C++ and Python applications.</p>
+<p>ZeroMQ supports various working modes. Currently, the integration between the PilotOS system and the measurement and control system operates similarly to a remote procedure call; therefore, the &quot;Request-Reply model&quot; (Router-Dealer) is utilized here.</p>
+</div>
+<div class="section" id="message-definitions-router-dealer-mode">
+<h1>Message Definitions (Router-Dealer Mode)</h1>
+<div class="section" id="dispatch-computing-task">
+<h2>Dispatch Computing Task</h2>
+<p><strong>Function:</strong> This message is used by the PilotOS system to dispatch computing tasks to the measurement and control system.</p>
+<p><strong>Parameter Definitions:</strong>
+* <strong>MsgType</strong> (&quot;String&quot;): [Required] Message type, fixed as &quot;MsgTask&quot;.
+* <strong>SN</strong> (&quot;Uint32_t&quot;): [Required] Message sequence ID.
+* <strong>TaskId</strong> (&quot;String&quot;): [Required] Task ID.
+* <strong>ConvertQProg</strong> (&quot;String&quot;): [Required] Quantum program; the instructions to be executed by the measurement and control system.
+* <strong>Configure.TaskPriority</strong> (&quot;Uint32_t&quot;): [Optional, Default: 0] Task priority. Currently supports 2 levels: 0 (normal task) and 1 (high priority).
+* <strong>Configure.Shot</strong> (&quot;Uint32_t&quot;): [Required] Number of repetitions (shots). Range: 100~10000; defaults to 1000 if the limit is exceeded.
+* <strong>Configure.IsExperiment</strong> (&quot;Bool&quot;): [Optional] Indicates if the task is in experiment mode. true: Experiment mode; false: Non-experiment mode (normal user task). If this field is empty, it defaults to normal user task mode.
+* <strong>Configure.ClockCycle</strong> (&quot;Uint32_t&quot;): [Optional] Execution timing sequence. Maximum circuit execution cycle, unit: microseconds. PilotOS automatically decides whether to pass this parameter based on the maximum execution cycle returned by the chip.
+* <strong>Configure.PointLabel</strong> (&quot;Uint32_t&quot;): [Required] Application factory label, tentatively set to 128.</p>
+<p><strong>Return Information:</strong>
+* <strong>MsgType</strong> (&quot;String&quot;): [Required] Message type, fixed as &quot;MsgTaskAck&quot;.
+* <strong>SN</strong> (&quot;Uint32_t&quot;): [Required] Message sequence ID.
+* <strong>ErrCode</strong> (&quot;Uint32_t&quot;): [Required] Error code.
+* <strong>ErrInfo</strong> (&quot;String&quot;): [Conditional] Error information. Can be empty if there are no errors; required if an error occurs.</p>
+<pre class="code json literal-block">
+<span class="punctuation">{</span><span class="whitespace">
+    </span><span class="name tag">&quot;MsgType&quot;</span><span class="punctuation">:</span><span class="literal string double">&quot;MsgTask&quot;</span><span class="punctuation">,</span><span class="whitespace">
+    </span><span class="name tag">&quot;SN&quot;</span><span class="punctuation">:</span><span class="literal number integer">133</span><span class="punctuation">,</span><span class="whitespace">
+    </span><span class="name tag">&quot;TaskId&quot;</span><span class="punctuation">:</span><span class="literal string double">&quot;11D919FA044846F3B4DF453A827AE901&quot;</span><span class="punctuation">,</span><span class="whitespace">
+    </span><span class="name tag">&quot;ConvertQProg&quot;</span><span class="punctuation">:</span><span class="literal string double">&quot;QProg-instructions json-string.&quot;</span><span class="punctuation">,</span><span class="whitespace">
+    </span><span class="name tag">&quot;Configure&quot;</span><span class="punctuation">:{</span><span class="whitespace">
+        </span><span class="name tag">&quot;Shot&quot;</span><span class="punctuation">:</span><span class="literal number integer">1000</span><span class="punctuation">,</span><span class="whitespace">
+        </span><span class="name tag">&quot;TaskPriority&quot;</span><span class="punctuation">:</span><span class="literal number integer">1</span><span class="punctuation">,</span><span class="whitespace">
+        </span><span class="name tag">&quot;IsExperiment&quot;</span><span class="punctuation">:</span><span class="whitespace"> </span><span class="keyword constant">true</span><span class="punctuation">,</span><span class="whitespace">
+        </span><span class="name tag">&quot;PointLabel&quot;</span><span class="punctuation">:</span><span class="literal number integer">128</span><span class="whitespace">
+    </span><span class="punctuation">}</span><span class="whitespace">
+</span><span class="punctuation">}</span>
+</pre>
+<pre class="code json literal-block">
+<span class="punctuation">{</span><span class="whitespace">
+    </span><span class="name tag">&quot;MsgType&quot;</span><span class="punctuation">:</span><span class="literal string double">&quot;MsgTaskAck&quot;</span><span class="punctuation">,</span><span class="whitespace">
+    </span><span class="name tag">&quot;SN&quot;</span><span class="punctuation">:</span><span class="literal number integer">133</span><span class="punctuation">,</span><span class="whitespace">
+    </span><span class="name tag">&quot;ErrCode&quot;</span><span class="punctuation">:</span><span class="literal number integer">2</span><span class="punctuation">,</span><span class="whitespace">
+    </span><span class="name tag">&quot;ErrInfo&quot;</span><span class="punctuation">:</span><span class="literal string double">&quot;configure error.&quot;</span><span class="whitespace">
+</span><span class="punctuation">}</span>
+</pre>
+</div>
+<div class="section" id="task-status-query">
+<h2>Task Status Query</h2>
+<p><strong>Function:</strong> PilotOS sends a task status query to the measurement and control system to verify the current computation state. When PilotOS fails to receive calculation results for an extended period, it uses this message to check the task status, preventing PilotOS from waiting indefinitely during abnormal conditions.</p>
+<p><strong>Parameter Definitions:</strong>
+* <strong>MsgType</strong> (&quot;String&quot;): [Required] Message type, fixed as &quot;TaskStatus&quot;.
+* <strong>SN</strong> (&quot;Uint32_t&quot;): [Required] Message sequence ID.
+* <strong>TaskId</strong> (&quot;String&quot;): [Required] Task ID.</p>
+<p><strong>Return Information:</strong>
+* <strong>MsgType</strong> (&quot;String&quot;): [Required] Message type, fixed as &quot;TaskStatusAck&quot;.
+* <strong>SN</strong> (&quot;Uint32_t&quot;): [Required] Message sequence ID.
+* <strong>TaskId</strong> (&quot;String&quot;): [Required] Task ID.
+* <strong>TaskStatus</strong> (&quot;Uint32_t&quot;): [Required] Task status, refer to the &quot;Type Definitions&quot; section.</p>
+<pre class="code json literal-block">
+<span class="punctuation">{</span><span class="whitespace">
+    </span><span class="name tag">&quot;MsgType&quot;</span><span class="punctuation">:</span><span class="literal string double">&quot;TaskStatus&quot;</span><span class="punctuation">,</span><span class="whitespace">
+    </span><span class="name tag">&quot;SN&quot;</span><span class="punctuation">:</span><span class="literal number integer">10086</span><span class="punctuation">,</span><span class="whitespace">
+    </span><span class="name tag">&quot;TaskId&quot;</span><span class="punctuation">:</span><span class="literal string double">&quot;11D919FA044846F3B4DF453A827AE901&quot;</span><span class="whitespace">
+</span><span class="punctuation">}</span>
+</pre>
+<pre class="code json literal-block">
+<span class="punctuation">{</span><span class="whitespace">
+    </span><span class="name tag">&quot;MsgType&quot;</span><span class="punctuation">:</span><span class="literal string double">&quot;TaskStatusAck&quot;</span><span class="punctuation">,</span><span class="whitespace">
+    </span><span class="name tag">&quot;SN&quot;</span><span class="punctuation">:</span><span class="literal number integer">10086</span><span class="punctuation">,</span><span class="whitespace">
+    </span><span class="name tag">&quot;TaskId&quot;</span><span class="punctuation">:</span><span class="literal string double">&quot;11D919FA044846F3B4DF453A827AE901&quot;</span><span class="punctuation">,</span><span class="whitespace">
+    </span><span class="name tag">&quot;TaskStatus&quot;</span><span class="punctuation">:</span><span class="literal number integer">3</span><span class="whitespace">
+</span><span class="punctuation">}</span>
+</pre>
+</div>
+<div class="section" id="return-computing-results">
+<h2>Return Computing Results</h2>
+<p><strong>Function:</strong> The measurement and control system returns the computing results to the PilotOS system.</p>
+<p><strong>Parameter Definitions:</strong>
+* <strong>MsgType</strong> (&quot;String&quot;): [Required] Message type, fixed as &quot;MsgTaskResult&quot;.
+* <strong>SN</strong> (&quot;Uint32_t&quot;): [Required] Message sequence ID.
+* <strong>TaskId</strong> (&quot;String&quot;): [Required] Task ID.
+* <strong>ProbCount</strong> (&quot;Int Array&quot;): [Required] Collapse counts; the number of state collapses corresponding to each Key.
+* <strong>NoteTime.CompileTime</strong> (&quot;Int&quot;): [Required] Compilation time cost, unit: ms.
+* <strong>NoteTime.PendingTime</strong> (&quot;Int&quot;): [Required] Queuing time cost, unit: ms.
+* <strong>NoteTime.MeasureTime</strong> (&quot;Int&quot;): [Required] Measurement time cost, unit: ms.
+* <strong>NoteTime.PostProcessTime</strong> (&quot;Int&quot;): [Required] Post-processing time cost, unit: ms.
+* <strong>ErrCode</strong> (&quot;Uint32_t&quot;): [Required] Error code.
+* <strong>ErrInfo</strong> (&quot;String&quot;): [Conditional] Error information.</p>
+<p><strong>Return Information:</strong>
+* <strong>MsgType</strong> (&quot;String&quot;): [Required] Message type, fixed as &quot;MsgTaskResultAck&quot;.
+* <strong>SN</strong> (&quot;Uint32_t&quot;): [Required] Message sequence ID.
+* <strong>ErrCode</strong> (&quot;Uint32_t&quot;): [Required] Error code.
+* <strong>ErrInfo</strong> (&quot;String&quot;): [Conditional] Error information.</p>
+<pre class="code json literal-block">
+<span class="punctuation">{</span><span class="whitespace">
+    </span><span class="name tag">&quot;MsgType&quot;</span><span class="punctuation">:</span><span class="literal string double">&quot;MsgTaskResult&quot;</span><span class="punctuation">,</span><span class="whitespace">
+    </span><span class="name tag">&quot;SN&quot;</span><span class="punctuation">:</span><span class="literal number integer">133</span><span class="punctuation">,</span><span class="whitespace">
+    </span><span class="name tag">&quot;TaskId&quot;</span><span class="punctuation">:</span><span class="literal string double">&quot;11D919FA044846F3B4DF453A827AE901&quot;</span><span class="punctuation">,</span><span class="whitespace">
+    </span><span class="name tag">&quot;#key&quot;</span><span class="punctuation">:</span><span class="literal string double">&quot;Quantum states are uniformly represented by hexadecimal strings&quot;</span><span class="punctuation">,</span><span class="whitespace">
+    </span><span class="name tag">&quot;Key&quot;</span><span class="punctuation">:</span><span class="whitespace"> </span><span class="punctuation">[[</span><span class="literal string double">&quot;0x0&quot;</span><span class="punctuation">,</span><span class="literal string double">&quot;0x1&quot;</span><span class="punctuation">],[</span><span class="literal string double">&quot;0x0&quot;</span><span class="punctuation">,</span><span class="literal string double">&quot;0x1&quot;</span><span class="punctuation">]],</span><span class="whitespace">
+    </span><span class="name tag">&quot;ProbCount&quot;</span><span class="punctuation">:</span><span class="whitespace"> </span><span class="punctuation">[[</span><span class="literal number integer">111</span><span class="punctuation">,</span><span class="literal number integer">656</span><span class="punctuation">],[</span><span class="literal number integer">103</span><span class="punctuation">,</span><span class="literal number integer">703</span><span class="punctuation">]],</span><span class="whitespace">
+    </span><span class="name tag">&quot;NoteTime&quot;</span><span class="punctuation">:</span><span class="whitespace">
+    </span><span class="punctuation">{</span><span class="whitespace">
+        </span><span class="name tag">&quot;CompileTime&quot;</span><span class="punctuation">:</span><span class="literal number integer">1</span><span class="punctuation">,</span><span class="whitespace">
+        </span><span class="name tag">&quot;PendingTime&quot;</span><span class="punctuation">:</span><span class="literal number integer">94</span><span class="punctuation">,</span><span class="whitespace">
+        </span><span class="name tag">&quot;MeasureTime&quot;</span><span class="punctuation">:</span><span class="literal number integer">2306</span><span class="punctuation">,</span><span class="whitespace">
+        </span><span class="name tag">&quot;PostProcessTime&quot;</span><span class="punctuation">:</span><span class="literal number integer">105</span><span class="whitespace">
+    </span><span class="punctuation">},</span><span class="whitespace">
+    </span><span class="name tag">&quot;ErrCode&quot;</span><span class="punctuation">:</span><span class="literal number integer">0</span><span class="punctuation">,</span><span class="whitespace">
+    </span><span class="name tag">&quot;ErrInfo&quot;</span><span class="punctuation">:</span><span class="literal string double">&quot;&quot;</span><span class="whitespace">
+</span><span class="punctuation">}</span>
+</pre>
+</div>
+<div class="section" id="heartbeat-message">
+<h2>Heartbeat Message</h2>
+<p><strong>Function:</strong> Used to probe the connection status between PilotOS and the measurement and control system. The service is maintained by the measurement system; PilotOS actively sends heartbeat packets, and upon receiving them, the measurement system returns a heartbeat acknowledgment.</p>
+<p><strong>Parameter Definitions:</strong>
+* <strong>MsgType</strong> (&quot;String&quot;): [Required] Message type, fixed as &quot;MsgHeartbeat&quot;.
+* <strong>SN</strong> (&quot;Uint32_t&quot;): [Required] Heartbeat message sequence ID.
+* <strong>TimeStamp</strong> (&quot;Uint64_t&quot;): [Required] 64-bit integer timestamp, in milliseconds.
+* <strong>ChipID</strong> (&quot;Uint32_t&quot;): [Required] Chip name, e.g., 72.</p>
+<p><strong>Return Information:</strong>
+* <strong>MsgType</strong> (&quot;String&quot;): [Required] Message type, fixed as &quot;MsgHeartbeatAck&quot;.
+* <strong>SN</strong> (&quot;Uint32_t&quot;): [Required] Heartbeat message sequence ID.
+* <strong>backend</strong> (&quot;Uint32_t&quot;): [Required] Backend chip ID.
+* <strong>TimeStamp</strong> (&quot;Uint64_t&quot;): [Required] 64-bit integer timestamp, in milliseconds.
+* <strong>Topic</strong> (&quot;String&quot;): [Required] Subscribed message topic.</p>
+<pre class="code json literal-block">
+<span class="punctuation">{</span><span class="whitespace">
+    </span><span class="name tag">&quot;MsgType&quot;</span><span class="punctuation">:</span><span class="literal string double">&quot;MsgHeartbeat&quot;</span><span class="punctuation">,</span><span class="whitespace">
+    </span><span class="name tag">&quot;SN&quot;</span><span class="punctuation">:</span><span class="literal number integer">133</span><span class="punctuation">,</span><span class="whitespace">
+    </span><span class="name tag">&quot;ChipID&quot;</span><span class="punctuation">:</span><span class="literal number integer">72</span><span class="punctuation">,</span><span class="whitespace">
+    </span><span class="name tag">&quot;TimeStamp&quot;</span><span class="punctuation">:</span><span class="literal number integer">1638769359507</span><span class="whitespace">
+</span><span class="punctuation">}</span>
+</pre>
+</div>
+<div class="section" id="get-chip-calibration-time">
+<h2>Get Chip Calibration Time</h2>
+<p><strong>Function:</strong> The user actively fetches the timestamp of the last chip calibration performed by the measurement and control system. Returned by the measurement system.</p>
+<p><strong>Parameter Definitions:</strong>
+* <strong>MsgType</strong> (&quot;String&quot;): [Required] Message type, fixed as &quot;GetUpdateTime&quot;.
+* <strong>SN</strong> (&quot;Uint32_t&quot;): [Required] Message sequence ID.</p>
+<p><strong>Return Information:</strong>
+* <strong>MsgType</strong> (&quot;String&quot;): [Required] Message type, fixed as &quot;GetUpdateTimeAck&quot;.
+* <strong>SN</strong> (&quot;Uint32_t&quot;): [Required] Message sequence ID.
+* <strong>backend</strong> (&quot;Uint32_t&quot;): [Required] Backend chip ID.
+* <strong>LastUpdateTime.qubit</strong> (&quot;Uint32_t Array&quot;): [Required] Qubit names for the chip calibration timestamp (integer data).
+* <strong>LastUpdateTime.timeStamp</strong> (&quot;Uint64_t Array&quot;): [Required] Timestamps corresponding to the qubits (64-bit integer timestamp, in ms).
+* <strong>ErrCode</strong> (&quot;Uint32_t&quot;): [Required] Error code.
+* <strong>ErrInfo</strong> (&quot;String&quot;): [Conditional] Error information.</p>
+<pre class="code json literal-block">
+<span class="punctuation">{</span><span class="whitespace">
+    </span><span class="name tag">&quot;MsgType&quot;</span><span class="punctuation">:</span><span class="literal string double">&quot;GetUpdateTime&quot;</span><span class="punctuation">,</span><span class="whitespace">
+    </span><span class="name tag">&quot;SN&quot;</span><span class="punctuation">:</span><span class="literal number integer">133</span><span class="whitespace">
+</span><span class="punctuation">}</span>
+</pre>
+</div>
+<div class="section" id="get-rb-experimental-data">
+<h2>Get RB Experimental Data</h2>
+<p><strong>Function:</strong> The user actively fetches Randomized Benchmarking (RB) experimental data. Returned by the measurement system.</p>
+<p><strong>Parameter Definitions:</strong>
+* <strong>MsgType</strong> (&quot;String&quot;): [Required] Message type, fixed as &quot;GetRBData&quot;.
+* <strong>SN</strong> (&quot;Uint32_t&quot;): [Required] Message sequence ID.
+* <strong>ChipID</strong> (&quot;Uint32_t&quot;): [Required] Chip name, e.g., 72.</p>
+<p><strong>Return Information:</strong>
+* <strong>MsgType</strong> (&quot;String&quot;): [Required] Message type, fixed as &quot;GetRBDataAck&quot;.
+* <strong>SN</strong> (&quot;Uint32_t&quot;): [Required] Message sequence ID.
+* <strong>backend</strong> (&quot;Uint32_t&quot;): [Required] Backend chip ID.
+* <strong>SingleGateCircuitDepth</strong> (&quot;Uint32_t Array&quot;): [Required] Maximum circuit depth for the single-gate RB experiment.
+* <strong>DoubleGateCircuitDepth</strong> (&quot;Uint32_t Array&quot;): [Required] Maximum circuit depth for the double-gate RB experiment.
+* <strong>SingleGateFidelity</strong> (&quot;Object&quot;): [Required] Single-qubit fidelity (string-type map).
+* <strong>DoubleGateFidelity</strong> (&quot;Object&quot;): [Required] Two-qubit fidelity (string-type map).
+* <strong>ErrCode</strong> (&quot;Uint32_t&quot;): [Required] Error code.
+* <strong>ErrInfo</strong> (&quot;String&quot;): [Conditional] Error information.</p>
+<pre class="code json literal-block">
+<span class="punctuation">{</span><span class="whitespace">
+    </span><span class="name tag">&quot;MsgType&quot;</span><span class="punctuation">:</span><span class="literal string double">&quot;GetRBData&quot;</span><span class="punctuation">,</span><span class="whitespace">
+    </span><span class="name tag">&quot;SN&quot;</span><span class="punctuation">:</span><span class="literal number integer">133</span><span class="punctuation">,</span><span class="whitespace">
+    </span><span class="name tag">&quot;ChipID&quot;</span><span class="punctuation">:</span><span class="literal number integer">72</span><span class="whitespace">
+</span><span class="punctuation">}</span>
+</pre>
+</div>
+<div class="section" id="get-chip-configuration-parameters">
+<h2>Get Chip Configuration Parameters</h2>
+<p><strong>Function:</strong> Fetches chip configuration parameters (JSON data), returned by the measurement system.</p>
+<p><strong>Parameter Definitions:</strong>
+* <strong>MsgType</strong> (&quot;String&quot;): [Required] Message type, fixed as &quot;GetChipConfig&quot;.
+* <strong>SN</strong> (&quot;Uint32_t&quot;): [Required] Message sequence ID.
+* <strong>ChipID</strong> (&quot;Uint32_t&quot;): [Required] Chip name, e.g., 72.</p>
+<p><strong>Return Information:</strong>
+* <strong>MsgType</strong> (&quot;String&quot;): [Required] Message type, fixed as &quot;GetChipConfigAck&quot;.
+* <strong>SN</strong> (&quot;Uint32_t&quot;): [Required] Message sequence ID.
+* <strong>backend</strong> (&quot;Uint32_t&quot;): [Required] Backend chip ID.
+* <strong>PointLabelList</strong> (&quot;Uint32_t Array&quot;): [Required] List of workspace modes supported by the current chip.
+* <strong>ChipConfig</strong> (&quot;String&quot;): [Required] Chip parameter JSON string.
+* <strong>ErrCode</strong> (&quot;Uint32_t&quot;): [Required] Error code.
+* <strong>ErrInfo</strong> (&quot;String&quot;): [Conditional] Error information.</p>
+<pre class="code json literal-block">
+<span class="punctuation">{</span><span class="whitespace">
+    </span><span class="name tag">&quot;MsgType&quot;</span><span class="punctuation">:</span><span class="literal string double">&quot;GetChipConfig&quot;</span><span class="punctuation">,</span><span class="whitespace">
+    </span><span class="name tag">&quot;SN&quot;</span><span class="punctuation">:</span><span class="literal number integer">133</span><span class="punctuation">,</span><span class="whitespace">
+    </span><span class="name tag">&quot;ChipID&quot;</span><span class="punctuation">:</span><span class="literal number integer">72</span><span class="whitespace">
+</span><span class="punctuation">}</span>
+</pre>
+</div>
+<div class="section" id="request-specific-task-result">
+<h2>Request Specific Task Result</h2>
+<p><strong>Function:</strong> Used in abnormal scenarios where PilotOS fails to correctly receive the computing results from the measurement system. PilotOS actively requests the computation result data for a specified task.</p>
+<p><strong>Parameter Definitions:</strong>
+* <strong>MsgType</strong> (&quot;String&quot;): [Required] Message type, fixed as &quot;GetTaskResult&quot;.
+* <strong>SN</strong> (&quot;Uint32_t&quot;): [Required] Message sequence ID.
+* <strong>TaskId</strong> (&quot;String&quot;): [Required] Task ID.</p>
+<p><strong>Return Information:</strong>
+The return result format is consistent with the one detailed in the &quot;2.3 Return Computing Results&quot; section, but the &quot;TaskResult&quot; and &quot;FidelityMat&quot; fields are removed. \
+Note: The message sequence number in the returned result will be identical to the sequence number of the request message.</p>
+<pre class="code json literal-block">
+<span class="punctuation">{</span><span class="whitespace">
+    </span><span class="name tag">&quot;MsgType&quot;</span><span class="punctuation">:</span><span class="literal string double">&quot;GetTaskResult&quot;</span><span class="punctuation">,</span><span class="whitespace">
+    </span><span class="name tag">&quot;SN&quot;</span><span class="punctuation">:</span><span class="literal number integer">134</span><span class="punctuation">,</span><span class="whitespace">
+    </span><span class="name tag">&quot;TaskId&quot;</span><span class="punctuation">:</span><span class="literal string double">&quot;11D919FA044846F3B4DF453A827AE901&quot;</span><span class="whitespace">
+</span><span class="punctuation">}</span>
+</pre>
+</div>
+<div class="section" id="set-exclusive-vip-time">
+<h2>Set Exclusive VIP Time</h2>
+<p><strong>Function:</strong> Used in specific scenarios where PilotOS configures an exclusive computing block, ensuring tasks submitted during this window do not require queuing.</p>
+<p><strong>Parameter Definitions:</strong>
+* <strong>MsgType</strong> (&quot;String&quot;): [Required] Message type, fixed as &quot;SetVip&quot;.
+* <strong>SN</strong> (&quot;Uint32_t&quot;): [Required] Message sequence ID.
+* <strong>OffsetTime</strong> (&quot;Uint64_t&quot;): [Required] Offset time relative to the current system time (unit: seconds).
+* <strong>ExclusiveTime</strong> (&quot;Uint64_t&quot;): [Required] Duration of the exclusive time block (unit: seconds).</p>
+<p><strong>Return Information:</strong>
+* <strong>MsgType</strong> (&quot;String&quot;): [Required] Message type, fixed as &quot;SetVipAck&quot;.
+* <strong>SN</strong> (&quot;Uint32_t&quot;): [Required] Message sequence ID.
+* <strong>ErrCode</strong> (&quot;Uint32_t&quot;): [Required] Error code.
+* <strong>ErrInfo</strong> (&quot;String&quot;): [Conditional] Error information.</p>
+<pre class="code json literal-block">
+<span class="punctuation">{</span><span class="whitespace">
+    </span><span class="name tag">&quot;MsgType&quot;</span><span class="punctuation">:</span><span class="literal string double">&quot;SetVip&quot;</span><span class="punctuation">,</span><span class="whitespace">
+    </span><span class="name tag">&quot;SN&quot;</span><span class="punctuation">:</span><span class="literal number integer">134</span><span class="punctuation">,</span><span class="whitespace">
+    </span><span class="name tag">&quot;OffsetTime&quot;</span><span class="punctuation">:</span><span class="literal number integer">120</span><span class="punctuation">,</span><span class="whitespace">
+    </span><span class="name tag">&quot;ExclusiveTime&quot;</span><span class="punctuation">:</span><span class="literal number integer">600</span><span class="whitespace">
+</span><span class="punctuation">}</span>
+</pre>
+</div>
+<div class="section" id="release-exclusive-vip-time">
+<h2>Release Exclusive VIP Time</h2>
+<p><strong>Function:</strong> Used to release the exclusive computing block operation and restore normal mode after tasks within the exclusive VIP period are completed.</p>
+<p><strong>Parameter Definitions:</strong>
+* <strong>MsgType</strong> (&quot;String&quot;): [Required] Message type, fixed as &quot;ReleaseVip&quot;.
+* <strong>SN</strong> (&quot;Uint32_t&quot;): [Required] Message sequence ID.</p>
+<p><strong>Return Information:</strong>
+* <strong>MsgType</strong> (&quot;String&quot;): [Required] Message type, fixed as &quot;ReleaseVipAck&quot;.
+* <strong>SN</strong> (&quot;Uint32_t&quot;): [Required] Message sequence ID.
+* <strong>ErrCode</strong> (&quot;Uint32_t&quot;): [Required] Error code.
+* <strong>ErrInfo</strong> (&quot;String&quot;): [Conditional] Error information.</p>
+<pre class="code json literal-block">
+<span class="punctuation">{</span><span class="whitespace">
+    </span><span class="name tag">&quot;MsgType&quot;</span><span class="punctuation">:</span><span class="literal string double">&quot;ReleaseVip&quot;</span><span class="punctuation">,</span><span class="whitespace">
+    </span><span class="name tag">&quot;SN&quot;</span><span class="punctuation">:</span><span class="literal number integer">135</span><span class="whitespace">
+</span><span class="punctuation">}</span>
+</pre>
+</div>
+</div>
+<div class="section" id="subscribe-messages-pub-sub-mode">
+<h1>Subscribe Messages (PUB-SUB Mode)</h1>
+<div class="section" id="task-status">
+<h2>Task Status</h2>
+<p><strong>Function:</strong> When the calculation phase of a task updates, the measurement system pushes real-time task status info.</p>
+<p><strong>Operation</strong>: Fixed as bytes: &quot;task_status&quot;.</p>
+<p><strong>Pushed Message Format:</strong>
+* <strong>MsgType</strong> (&quot;String&quot;): [Required] Message type, fixed as &quot;TaskStatus&quot;.
+* <strong>SN</strong> (&quot;Uint32_t&quot;): [Required] Message sequence ID.
+* <strong>TaskId</strong> (&quot;String&quot;): [Required] Task ID.
+* <strong>TaskStatus</strong> (&quot;Uint32_t&quot;): [Required] Task status, refer to the task status definitions.</p>
+<pre class="code json literal-block">
+<span class="punctuation">{</span><span class="whitespace">
+    </span><span class="name tag">&quot;MsgType&quot;</span><span class="punctuation">:</span><span class="literal string double">&quot;TaskStatus&quot;</span><span class="punctuation">,</span><span class="whitespace">
+    </span><span class="name tag">&quot;SN&quot;</span><span class="punctuation">:</span><span class="literal number integer">0</span><span class="punctuation">,</span><span class="whitespace">
+    </span><span class="name tag">&quot;TaskId&quot;</span><span class="punctuation">:</span><span class="literal string double">&quot;11D919FA044846F3B4DF453A827AE901&quot;</span><span class="punctuation">,</span><span class="whitespace">
+    </span><span class="name tag">&quot;TaskStatus&quot;</span><span class="punctuation">:</span><span class="literal number integer">3</span><span class="whitespace">
+</span><span class="punctuation">}</span>
+</pre>
+</div>
+<div class="section" id="chip-configuration-update-flag">
+<h2>Chip Configuration Update Flag</h2>
+<p><strong>Function:</strong> After chip parameters change, the measurement system pushes a message notifying PilotOS that it can send a fetch request via Router-Dealer mode to query the updated chip configuration info.</p>
+<p><strong>Operation</strong>: Fixed as bytes: &quot;chip_update&quot;.</p>
+<p><strong>Pushed Message Format:</strong>
+* <strong>UpdateFlag</strong> (&quot;Bool&quot;): [Required] Update identifier.
+* <strong>LastUpdateTime</strong> (&quot;Uint64_t&quot;): [Required] Last update timestamp.</p>
+<pre class="code json literal-block">
+<span class="punctuation">{</span><span class="whitespace">
+    </span><span class="name tag">&quot;UpdateFlag&quot;</span><span class="punctuation">:</span><span class="keyword constant">true</span><span class="punctuation">,</span><span class="whitespace">
+    </span><span class="name tag">&quot;LastUpdateTime&quot;</span><span class="punctuation">:</span><span class="whitespace"> </span><span class="literal number integer">1705307288685</span><span class="whitespace">
+</span><span class="punctuation">}</span>
+</pre>
+</div>
+<div class="section" id="chip-resource-status">
+<h2>Chip Resource Status</h2>
+<p><strong>Function:</strong> During task computation in multi-threading mode, whenever chip resources change (locked or released), the measurement service pushes detailed thread data to PilotOS (displaying the qubit usage of each measurement thread). QPilot only needs to monitor the &quot;use_bits&quot; field for each thread (t0, t1, t2...).</p>
+<p><strong>Operation</strong>: Fixed as bytes: &quot;probe&quot;.</p>
+<p><strong>Pushed Message Format:</strong>
+* <strong>core_thread.t0</strong> (&quot;Object&quot;): [Required] Thread name of the measurement service.
+* <strong>core_thread.t0.use_bits</strong> (&quot;String Array&quot;): [Required] All qubits currently utilized by the thread.</p>
+<pre class="code json literal-block">
+<span class="punctuation">{</span><span class="whitespace">
+    </span><span class="name tag">&quot;inst_status&quot;</span><span class="punctuation">:</span><span class="whitespace"> </span><span class="literal number integer">1</span><span class="punctuation">,</span><span class="whitespace">
+    </span><span class="name tag">&quot;linked&quot;</span><span class="punctuation">:</span><span class="whitespace"> </span><span class="literal number integer">1</span><span class="punctuation">,</span><span class="whitespace">
+    </span><span class="name tag">&quot;timestamp&quot;</span><span class="punctuation">:</span><span class="whitespace"> </span><span class="literal number float">1695182448.7963016</span><span class="punctuation">,</span><span class="whitespace">
+    </span><span class="name tag">&quot;scheduler&quot;</span><span class="punctuation">:</span><span class="whitespace"> </span><span class="punctuation">{</span><span class="whitespace"> </span><span class="name tag">&quot;status&quot;</span><span class="punctuation">:</span><span class="whitespace"> </span><span class="literal string double">&quot;InitialState&quot;</span><span class="punctuation">,</span><span class="whitespace"> </span><span class="name tag">&quot;queue_len&quot;</span><span class="punctuation">:</span><span class="whitespace"> </span><span class="literal number integer">3</span><span class="whitespace"> </span><span class="punctuation">},</span><span class="whitespace">
+    </span><span class="name tag">&quot;core_status&quot;</span><span class="punctuation">:</span><span class="whitespace"> </span><span class="punctuation">{</span><span class="whitespace"> </span><span class="name tag">&quot;empty_thread&quot;</span><span class="punctuation">:</span><span class="whitespace"> </span><span class="literal number integer">3</span><span class="punctuation">,</span><span class="whitespace"> </span><span class="name tag">&quot;pause_read&quot;</span><span class="punctuation">:</span><span class="whitespace"> </span><span class="literal number integer">0</span><span class="punctuation">,</span><span class="whitespace"> </span><span class="name tag">&quot;thread_num&quot;</span><span class="punctuation">:</span><span class="whitespace"> </span><span class="literal number integer">5</span><span class="whitespace"> </span><span class="punctuation">},</span><span class="whitespace">
+    </span><span class="name tag">&quot;core_thread&quot;</span><span class="punctuation">:</span><span class="whitespace"> </span><span class="punctuation">{</span><span class="whitespace">
+        </span><span class="name tag">&quot;t0&quot;</span><span class="punctuation">:</span><span class="whitespace"> </span><span class="punctuation">{</span><span class="whitespace">
+            </span><span class="name tag">&quot;status&quot;</span><span class="punctuation">:</span><span class="whitespace"> </span><span class="literal string double">&quot;waiting&quot;</span><span class="punctuation">,</span><span class="whitespace">
+            </span><span class="name tag">&quot;thread_id&quot;</span><span class="punctuation">:</span><span class="whitespace"> </span><span class="literal string double">&quot;t0&quot;</span><span class="punctuation">,</span><span class="whitespace">
+            </span><span class="name tag">&quot;task_id&quot;</span><span class="punctuation">:</span><span class="whitespace"> </span><span class="literal string double">&quot;650a6e6f197b42e9aeaad6d6&quot;</span><span class="punctuation">,</span><span class="whitespace">
+            </span><span class="name tag">&quot;start_time&quot;</span><span class="punctuation">:</span><span class="whitespace"> </span><span class="literal number float">1695182447.5371444</span><span class="punctuation">,</span><span class="whitespace">
+            </span><span class="name tag">&quot;user&quot;</span><span class="punctuation">:</span><span class="whitespace"> </span><span class="literal string double">&quot;admin3&quot;</span><span class="punctuation">,</span><span class="whitespace">
+            </span><span class="name tag">&quot;use_bits&quot;</span><span class="punctuation">:</span><span class="whitespace"> </span><span class="punctuation">[</span><span class="literal string double">&quot;q56&quot;</span><span class="punctuation">,</span><span class="whitespace"> </span><span class="literal string double">&quot;q18&quot;</span><span class="punctuation">,</span><span class="whitespace"> </span><span class="literal string double">&quot;q68&quot;</span><span class="punctuation">,</span><span class="whitespace"> </span><span class="literal string double">&quot;q69&quot;</span><span class="punctuation">,</span><span class="whitespace"> </span><span class="literal string double">&quot;q6&quot;</span><span class="punctuation">,</span><span class="whitespace"> </span><span class="literal string double">&quot;q2&quot;</span><span class="punctuation">,</span><span class="whitespace"> </span><span class="literal string double">&quot;q67&quot;</span><span class="punctuation">]</span><span class="whitespace">
+        </span><span class="punctuation">},</span><span class="whitespace">
+        </span><span class="name tag">&quot;t1&quot;</span><span class="punctuation">:</span><span class="whitespace"> </span><span class="punctuation">{</span><span class="whitespace"> </span><span class="name tag">&quot;status&quot;</span><span class="punctuation">:</span><span class="whitespace"> </span><span class="literal string double">&quot;ready&quot;</span><span class="punctuation">,</span><span class="whitespace"> </span><span class="name tag">&quot;use_bits&quot;</span><span class="punctuation">:</span><span class="whitespace"> </span><span class="punctuation">[]</span><span class="whitespace"> </span><span class="punctuation">}</span><span class="whitespace">
+    </span><span class="punctuation">}</span><span class="whitespace">
+</span><span class="punctuation">}</span>
+</pre>
+</div>
+<div class="section" id="automatic-calibration-start-information">
+<h2>Automatic Calibration Start Information</h2>
+<p><strong>Function:</strong> During automatic calibration routines, the measurement system pushes calibration qubit info to PilotOS; the qubits undergoing calibration are marked unavailable during this period.</p>
+<p><strong>Operation</strong>: Fixed as bytes: &quot;calibration_start&quot;.</p>
+<p><strong>Pushed Message Format:</strong>
+* <strong>qubits</strong> (&quot;String Array&quot;): [Required] Single-qubit info undergoing calibration.
+* <strong>couplers</strong> (&quot;String Array&quot;): [Required] Couplers.
+* <strong>pairs</strong> (&quot;String Array&quot;): [Required] Qubit pair info undergoing calibration.
+* <strong>discriminators</strong> (&quot;String Array&quot;): [Required] Discriminators.
+* <strong>point_label</strong> (&quot;Int&quot;): [Required] Indicates which label the current calibration is applied to.</p>
+</div>
+<div class="section" id="automatic-calibration-end-information">
+<h2>Automatic Calibration End Information</h2>
+<p><strong>Function:</strong> Upon successful completion of the calibration, a completion message is pushed to PilotOS, and the qubits become available again.</p>
+<p><strong>Operation</strong>: Fixed as bytes: &quot;calibration_done&quot;.</p>
+<p><strong>Pushed Message Format:</strong>
+* <strong>qubits</strong> (&quot;String Array&quot;): [Required] Calibrated single-qubit info.
+* <strong>couplers</strong> (&quot;String Array&quot;): [Required] Couplers.
+* <strong>pairs</strong> (&quot;String Array&quot;): [Required] Calibrated qubit pair info.
+* <strong>discriminators</strong> (&quot;String Array&quot;): [Required] Discriminators.</p>
+</div>
+<div class="section" id="chip-maintenance-information">
+<h2>Chip Maintenance Information</h2>
+<p><strong>Function:</strong> Receives chip maintenance start and end notifications to trigger automatic pausing in PilotOS. If the maintenance period exceeds 2 hours, PilotOS pushes an offline maintenance notification to the cloud platform; if it is under 2 hours, only PilotOS pauses, while the cloud platform remains online normally.</p>
+<p><strong>Operation</strong>: Fixed as bytes: &quot;chip_protect&quot;.</p>
+<p><strong>Pushed Message Format:</strong>
+* <strong>ProtectFlag</strong> (&quot;Bool&quot;): [Required] Maintenance flag. true means maintenance started, false means maintenance ended.
+* <strong>DurativeTime</strong> (&quot;Uint64_t&quot;): [Required] Maintenance duration (unit: minutes).
+* <strong>LastTime</strong> (&quot;Uint64_t&quot;): [Required] Timestamp.</p>
+</div>
+</div>
+<div class="section" id="type-definitions">
+<h1>Type Definitions</h1>
+<div class="section" id="task-status-types">
+<h2>Task Status Types</h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head"><strong>Status Code</strong></th>
+<th class="head"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>0</td>
+<td>Unknown status</td>
+</tr>
+<tr><td>1</td>
+<td>Task is still queuing</td>
+</tr>
+<tr><td>2</td>
+<td>Task is running</td>
+</tr>
+<tr><td>3</td>
+<td>Cannot find corresponding task information</td>
+</tr>
+<tr><td>4</td>
+<td>Task computation failed</td>
+</tr>
+<tr><td>5</td>
+<td>Task computation completed</td>
+</tr>
+<tr><td>6</td>
+<td>Task resent</td>
+</tr>
+<tr><td>7</td>
+<td>Task is compiling</td>
+</tr>
+<tr><td>8</td>
+<td>Task compilation completed</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="error-code-types">
+<h2>Error Code Types</h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head"><strong>Error Code</strong></th>
+<th class="head"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>0</td>
+<td>No error</td>
+</tr>
+<tr><td>1</td>
+<td>Unknown error</td>
+</tr>
+<tr><td>2</td>
+<td>Computing task parameter error</td>
+</tr>
+<tr><td>3</td>
+<td>JSON error</td>
+</tr>
+<tr><td>4</td>
+<td>Task queue full (returned when PilotOS sends more than 200 tasks)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="instruction-definitions">
+<h1>Instruction Definitions</h1>
+<div class="section" id="supported-basic-gate-types-and-parameter-descriptions">
+<h2>Supported Basic Gate Types and Parameter Descriptions</h2>
+<ul class="simple">
+<li><strong>RPhi</strong> (Single Gate)
+* <strong>qubit</strong> (&quot;uint32_t&quot;): Target qubit
+* <strong>axis</strong> (&quot;double&quot;): Rotation axis phase
+* <strong>angle</strong> (&quot;double&quot;): Rotation angle theta
+* <strong>order</strong> (&quot;uint32_t&quot;): Timing sequence</li>
+<li><strong>ECHO</strong> (Single Gate)
+* <strong>qubit</strong> (&quot;uint32_t&quot;): Target qubit
+* <strong>order</strong> (&quot;uint32_t&quot;): Timing sequence</li>
+<li><strong>IDLE</strong> (Single Gate)
+* <strong>qubit</strong> (&quot;uint32_t&quot;): Target qubit
+* <strong>delay</strong> (&quot;uint32_t&quot;): Delay, variable, affects subsequent gate timing
+* <strong>order</strong> (&quot;uint32_t&quot;): Timing sequence</li>
+<li><strong>CZ</strong> (Double Gate)
+* <strong>qubit</strong> (&quot;uint32_t&quot;): Target qubit
+* <strong>ctrl</strong> (&quot;uint32_t&quot;): Control qubit
+* <strong>order</strong> (&quot;uint32_t&quot;): Timing sequence</li>
+</ul>
+</div>
+<div class="section" id="instruction-format">
+<h2>Instruction Format</h2>
+<p>The instruction format utilizes nested JSON array objects. The innermost gate object contains a combination of a basic gate described in Section 5.1 with its parameters, plus a Measure gate object, formatted as follows:</p>
+<pre class="code json literal-block">
+<span class="punctuation">{</span><span class="name tag">&quot;Gate&quot;</span><span class="punctuation">:</span><span class="whitespace"> </span><span class="punctuation">[</span><span class="error">Qubi</span><span class="keyword constant">t</span><span class="error">...</span><span class="punctuation">,</span><span class="whitespace"> </span><span class="error">O</span><span class="keyword constant">t</span><span class="error">her</span><span class="whitespace"> </span><span class="error">parame</span><span class="keyword constant">ters</span><span class="error">...</span><span class="punctuation">,</span><span class="whitespace"> </span><span class="error">Execu</span><span class="keyword constant">t</span><span class="error">io</span><span class="keyword constant">n</span><span class="whitespace"> </span><span class="error">seque</span><span class="keyword constant">n</span><span class="error">ce</span><span class="punctuation">]}</span>
+</pre>
+<p>The Measure gate object is formatted as follows:</p>
+<pre class="code json literal-block">
+<span class="punctuation">{</span><span class="name tag">&quot;Measure&quot;</span><span class="punctuation">:</span><span class="whitespace"> </span><span class="punctuation">[[</span><span class="error">Qubi</span><span class="keyword constant">t</span><span class="error">...</span><span class="punctuation">],</span><span class="whitespace"> </span><span class="error">Execu</span><span class="keyword constant">t</span><span class="error">io</span><span class="keyword constant">n</span><span class="whitespace"> </span><span class="error">seque</span><span class="keyword constant">n</span><span class="error">ce</span><span class="punctuation">]}</span>
+</pre>
+<p>A complete single-circuit instruction is generally composed of multiple basic gate objects and a Measure gate object wrapped within a JSON array, formatted as follows:</p>
+<pre class="code json literal-block">
+<span class="punctuation">[</span><span class="whitespace">
+    </span><span class="punctuation">{</span><span class="name tag">&quot;Gate0&quot;</span><span class="punctuation">:</span><span class="whitespace"> </span><span class="punctuation">[</span><span class="error">Qubi</span><span class="keyword constant">t</span><span class="error">...</span><span class="punctuation">,</span><span class="whitespace"> </span><span class="error">O</span><span class="keyword constant">t</span><span class="error">her</span><span class="whitespace"> </span><span class="error">parame</span><span class="keyword constant">ters</span><span class="error">...</span><span class="punctuation">,</span><span class="whitespace"> </span><span class="error">Execu</span><span class="keyword constant">t</span><span class="error">io</span><span class="keyword constant">n</span><span class="whitespace"> </span><span class="error">seque</span><span class="keyword constant">n</span><span class="error">ce</span><span class="punctuation">]},</span><span class="whitespace">
+    </span><span class="punctuation">{</span><span class="name tag">&quot;Gate1&quot;</span><span class="punctuation">:</span><span class="whitespace"> </span><span class="punctuation">[</span><span class="error">Qubi</span><span class="keyword constant">t</span><span class="error">...</span><span class="punctuation">,</span><span class="whitespace"> </span><span class="error">O</span><span class="keyword constant">t</span><span class="error">her</span><span class="whitespace"> </span><span class="error">parame</span><span class="keyword constant">ters</span><span class="error">...</span><span class="punctuation">,</span><span class="whitespace"> </span><span class="error">Execu</span><span class="keyword constant">t</span><span class="error">io</span><span class="keyword constant">n</span><span class="whitespace"> </span><span class="error">seque</span><span class="keyword constant">n</span><span class="error">ce</span><span class="punctuation">]},</span><span class="whitespace">
+    </span><span class="error">...</span><span class="whitespace">
+    </span><span class="punctuation">{</span><span class="name tag">&quot;Gaten&quot;</span><span class="punctuation">:</span><span class="whitespace"> </span><span class="punctuation">[</span><span class="error">Qubi</span><span class="keyword constant">t</span><span class="error">...</span><span class="punctuation">,</span><span class="whitespace"> </span><span class="error">O</span><span class="keyword constant">t</span><span class="error">her</span><span class="whitespace"> </span><span class="error">parame</span><span class="keyword constant">ters</span><span class="error">...</span><span class="punctuation">,</span><span class="whitespace"> </span><span class="error">Execu</span><span class="keyword constant">t</span><span class="error">io</span><span class="keyword constant">n</span><span class="whitespace"> </span><span class="error">seque</span><span class="keyword constant">n</span><span class="error">ce</span><span class="punctuation">]},</span><span class="whitespace">
+    </span><span class="punctuation">{</span><span class="name tag">&quot;Measure&quot;</span><span class="punctuation">:</span><span class="whitespace"> </span><span class="punctuation">[[</span><span class="error">Qubi</span><span class="keyword constant">t</span><span class="error">...</span><span class="punctuation">],</span><span class="whitespace"> </span><span class="error">Execu</span><span class="keyword constant">t</span><span class="error">io</span><span class="keyword constant">n</span><span class="whitespace"> </span><span class="error">seque</span><span class="keyword constant">n</span><span class="error">ce</span><span class="punctuation">]}</span><span class="whitespace">
+</span><span class="punctuation">]</span>
+</pre>
+<p>A task is usually composed of instructions from multiple circuits, which means a collection of the single-circuit instructions mentioned above. A complete instruction for a task is formatted as follows:</p>
+<pre class="code json literal-block">
+<span class="punctuation">[</span><span class="whitespace">
+    </span><span class="punctuation">[</span><span class="whitespace">
+        </span><span class="punctuation">{</span><span class="name tag">&quot;Gate0&quot;</span><span class="punctuation">:</span><span class="whitespace"> </span><span class="punctuation">[</span><span class="error">Qubi</span><span class="keyword constant">t</span><span class="error">...</span><span class="punctuation">,</span><span class="whitespace"> </span><span class="error">O</span><span class="keyword constant">t</span><span class="error">her</span><span class="whitespace"> </span><span class="error">parame</span><span class="keyword constant">ters</span><span class="error">...</span><span class="punctuation">,</span><span class="whitespace"> </span><span class="error">Execu</span><span class="keyword constant">t</span><span class="error">io</span><span class="keyword constant">n</span><span class="whitespace"> </span><span class="error">seque</span><span class="keyword constant">n</span><span class="error">ce</span><span class="punctuation">]},</span><span class="whitespace">
+        </span><span class="punctuation">{</span><span class="name tag">&quot;Gate1&quot;</span><span class="punctuation">:</span><span class="whitespace"> </span><span class="punctuation">[</span><span class="error">Qubi</span><span class="keyword constant">t</span><span class="error">...</span><span class="punctuation">,</span><span class="whitespace"> </span><span class="error">O</span><span class="keyword constant">t</span><span class="error">her</span><span class="whitespace"> </span><span class="error">parame</span><span class="keyword constant">ters</span><span class="error">...</span><span class="punctuation">,</span><span class="whitespace"> </span><span class="error">Execu</span><span class="keyword constant">t</span><span class="error">io</span><span class="keyword constant">n</span><span class="whitespace"> </span><span class="error">seque</span><span class="keyword constant">n</span><span class="error">ce</span><span class="punctuation">]},</span><span class="whitespace">
+        </span><span class="error">...</span><span class="whitespace">
+        </span><span class="punctuation">{</span><span class="name tag">&quot;Measure&quot;</span><span class="punctuation">:</span><span class="whitespace"> </span><span class="punctuation">[[</span><span class="error">Qubi</span><span class="keyword constant">t</span><span class="error">...</span><span class="punctuation">],</span><span class="whitespace"> </span><span class="error">Execu</span><span class="keyword constant">t</span><span class="error">io</span><span class="keyword constant">n</span><span class="whitespace"> </span><span class="error">seque</span><span class="keyword constant">n</span><span class="error">ce</span><span class="punctuation">]}</span><span class="whitespace">
+    </span><span class="punctuation">],</span><span class="whitespace">
+    </span><span class="error">...</span><span class="whitespace">
+    </span><span class="punctuation">[</span><span class="whitespace">
+        </span><span class="punctuation">{</span><span class="name tag">&quot;Gate0&quot;</span><span class="punctuation">:</span><span class="whitespace"> </span><span class="punctuation">[</span><span class="error">Qubi</span><span class="keyword constant">t</span><span class="error">...</span><span class="punctuation">,</span><span class="whitespace"> </span><span class="error">O</span><span class="keyword constant">t</span><span class="error">her</span><span class="whitespace"> </span><span class="error">parame</span><span class="keyword constant">ters</span><span class="error">...</span><span class="punctuation">,</span><span class="whitespace"> </span><span class="error">Execu</span><span class="keyword constant">t</span><span class="error">io</span><span class="keyword constant">n</span><span class="whitespace"> </span><span class="error">seque</span><span class="keyword constant">n</span><span class="error">ce</span><span class="punctuation">]},</span><span class="whitespace">
+        </span><span class="punctuation">{</span><span class="name tag">&quot;Gate1&quot;</span><span class="punctuation">:</span><span class="whitespace"> </span><span class="punctuation">[</span><span class="error">Qubi</span><span class="keyword constant">t</span><span class="error">...</span><span class="punctuation">,</span><span class="whitespace"> </span><span class="error">O</span><span class="keyword constant">t</span><span class="error">her</span><span class="whitespace"> </span><span class="error">parame</span><span class="keyword constant">ters</span><span class="error">...</span><span class="punctuation">,</span><span class="whitespace"> </span><span class="error">Execu</span><span class="keyword constant">t</span><span class="error">io</span><span class="keyword constant">n</span><span class="whitespace"> </span><span class="error">seque</span><span class="keyword constant">n</span><span class="error">ce</span><span class="punctuation">]},</span><span class="whitespace">
+        </span><span class="error">...</span><span class="whitespace">
+        </span><span class="punctuation">{</span><span class="name tag">&quot;Measure&quot;</span><span class="punctuation">:</span><span class="whitespace"> </span><span class="punctuation">[[</span><span class="error">Qubi</span><span class="keyword constant">t</span><span class="error">...</span><span class="punctuation">],</span><span class="whitespace"> </span><span class="error">Execu</span><span class="keyword constant">t</span><span class="error">io</span><span class="keyword constant">n</span><span class="whitespace"> </span><span class="error">seque</span><span class="keyword constant">n</span><span class="error">ce</span><span class="punctuation">]}</span><span class="whitespace">
+    </span><span class="punctuation">]</span><span class="whitespace">
+</span><span class="punctuation">]</span>
+</pre>
+</div>
+</div>
+</div>
+</body>
+</html>
