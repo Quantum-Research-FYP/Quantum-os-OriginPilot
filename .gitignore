@@ -16,3 +16,6 @@ python_simulator/venv/
 # OS metadata
 .DS_Store
 Thumbs.db
+
+# Local license files
+**/.pilotos.sys
