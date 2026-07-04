@@ -19,3 +19,9 @@ Thumbs.db
 
 # Local license files
 **/.pilotos.sys
+
+# PilotProbe patterns
+pilotprobe/venv/
+pilotprobe/pilotprobe.db
+pilotprobe/*.json
+pilotprobe/*.csv

@@ -1,0 +1,127 @@
+{
+  "system": "superconducting",
+  "messages": {
+    "MsgHeartbeat": {
+      "type": "object",
+      "required": ["MsgType"],
+      "properties": {
+        "MsgType": {"type": "string", "const": "MsgHeartbeat"},
+        "SN": {"type": "integer", "minimum": 0},
+        "Chip": {"type": ["integer", "string"]},
+        "TimeStamp": {"type": "integer"}
+      }
+    },
+    "MsgHeartbeatAck": {
+      "type": "object",
+      "required": ["MsgType", "SN"],
+      "properties": {
+        "MsgType": {"type": "string", "const": "MsgHeartbeatAck"},
+        "SN": {"type": "integer"},
+        "backend": {},
+        "TimeStamp": {"type": "integer"},
+        "Topic": {"type": "string"}
+      }
+    },
+    "GetChipConfig": {
+      "type": "object",
+      "required": ["MsgType"],
+      "properties": {
+        "MsgType": {"type": "string", "const": "GetChipConfig"},
+        "SN": {"type": "integer", "minimum": 0},
+        "Chip": {}
+      }
+    },
+    "GetChipConfigAck": {
+      "type": "object",
+      "required": ["MsgType", "SN", "ErrCode"],
+      "properties": {
+        "MsgType": {"type": "string", "const": "GetChipConfigAck"},
+        "SN": {"type": "integer"},
+        "backend": {},
+        "PointLabelList": {"type": "array"},
+        "ChipConfig": {"type": "object"},
+        "ErrCode": {"type": "integer"},
+        "ErrInfo": {"type": "string"}
+      }
+    },
+    "MsgTask": {
+      "type": "object",
+      "required": ["MsgType", "SN", "TaskId", "ConvertQProg", "Configure"],
+      "properties": {
+        "MsgType": {"type": "string", "const": "MsgTask"},
+        "SN": {"type": "integer", "minimum": 0},
+        "TaskId": {"type": "string", "minLength": 1},
+        "ConvertQProg": {"type": "string"},
+        "Configure": {
+          "type": "object",
+          "required": ["Shot"],
+          "properties": {
+            "Shot": {"type": "integer", "minimum": 1, "maximum": 20000},
+            "TaskPriority": {"type": "integer"},
+            "IsExperiment": {"type": "boolean"},
+            "PointLabel": {"type": "integer"}
+          }
+        }
+      }
+    },
+    "MsgTaskAck": {
+      "type": "object",
+      "required": ["MsgType", "SN", "ErrCode"],
+      "properties": {
+        "MsgType": {"type": "string", "const": "MsgTaskAck"},
+        "SN": {"type": "integer"},
+        "ErrCode": {"type": "integer", "enum": [0, 1, 2, 3, 4, 5, 10, 40]},
+        "ErrInfo": {"type": "string"}
+      }
+    },
+    "MsgTaskResult": {
+      "type": "object",
+      "required": ["MsgType", "SN", "TaskId", "ErrCode"],
+      "properties": {
+        "MsgType": {"type": "string", "const": "MsgTaskResult"},
+        "SN": {"type": "integer"},
+        "TaskId": {"type": "string"},
+        "Key": {"type": "array"},
+        "ProbCount": {"type": "array"},
+        "NoteTime": {"type": "object"},
+        "ErrCode": {"type": "integer"},
+        "ErrInfo": {"type": "string"}
+      }
+    },
+    "TaskStatus": {
+      "type": "object",
+      "required": ["MsgType", "TaskId"],
+      "properties": {
+        "MsgType": {"type": "string", "const": "TaskStatus"},
+        "SN": {"type": "integer"},
+        "TaskId": {"type": "string"}
+      }
+    },
+    "TaskStatusAck": {
+      "type": "object",
+      "required": ["MsgType", "SN"],
+      "properties": {
+        "MsgType": {"type": "string", "const": "TaskStatusAck"},
+        "SN": {"type": "integer"},
+        "TaskId": {"type": "string"},
+        "TaskStatus": {"type": "integer", "enum": [0,1,2,3,4,5,6,7,8]}
+      }
+    },
+    "SetVip": {
+      "type": "object",
+      "required": ["MsgType", "SN"],
+      "properties": {
+        "MsgType": {"type": "string", "const": "SetVip"},
+        "SN": {"type": "integer"}
+      }
+    },
+    "ReleaseVip": {
+      "type": "object",
+      "required": ["MsgType", "SN"],
+      "properties": {
+        "MsgType": {"type": "string", "const": "ReleaseVip"},
+        "SN": {"type": "integer"}
+      }
+    }
+  }
+}
