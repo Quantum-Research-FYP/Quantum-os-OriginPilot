@@ -2,6 +2,7 @@
 PilotProbe Configuration
 Port mappings, system types, and diagnostic settings.
 """
+import os
 from enum import Enum
 
 
@@ -18,38 +19,38 @@ class ProbeConfig:
 
     # ── Proxy listen ports (PilotOS / test_client connects here) ──
     PROXY_ROUTER_PORTS = {
-        SystemType.SUPERCONDUCTING: 6000,
-        SystemType.ION_TRAP: 6001,
-        SystemType.NEUTRAL_ATOM: 6002,
-        SystemType.PHOTONIC: 6003,
+        SystemType.SUPERCONDUCTING: int(os.environ.get("PROXY_ROUTER_PORT_SUPERCONDUCTING", 6000)),
+        SystemType.ION_TRAP:        int(os.environ.get("PROXY_ROUTER_PORT_ION_TRAP", 6001)),
+        SystemType.NEUTRAL_ATOM:    int(os.environ.get("PROXY_ROUTER_PORT_NEUTRAL_ATOM", 6002)),
+        SystemType.PHOTONIC:        int(os.environ.get("PROXY_ROUTER_PORT_PHOTONIC", 6003)),
     }
 
     # ── Simulator Router ports (proxy forwards requests here) ──
     SIMULATOR_ROUTER_PORTS = {
-        SystemType.SUPERCONDUCTING: 7000,
-        SystemType.ION_TRAP: 7001,
-        SystemType.NEUTRAL_ATOM: 7002,
-        SystemType.PHOTONIC: 7003,
+        SystemType.SUPERCONDUCTING: int(os.environ.get("SIMULATOR_ROUTER_PORT_SUPERCONDUCTING", 7000)),
+        SystemType.ION_TRAP:        int(os.environ.get("SIMULATOR_ROUTER_PORT_ION_TRAP", 7001)),
+        SystemType.NEUTRAL_ATOM:    int(os.environ.get("SIMULATOR_ROUTER_PORT_NEUTRAL_ATOM", 7002)),
+        SystemType.PHOTONIC:        int(os.environ.get("SIMULATOR_ROUTER_PORT_PHOTONIC", 7003)),
     }
 
     # ── Simulator PUB ports (proxy subscribes here) ──
     SIMULATOR_PUB_PORTS = {
-        SystemType.SUPERCONDUCTING: 8000,
-        SystemType.ION_TRAP: 8001,
-        SystemType.NEUTRAL_ATOM: 8002,
-        SystemType.PHOTONIC: 8003,
+        SystemType.SUPERCONDUCTING: int(os.environ.get("SIMULATOR_PUB_PORT_SUPERCONDUCTING", 8000)),
+        SystemType.ION_TRAP:        int(os.environ.get("SIMULATOR_PUB_PORT_ION_TRAP", 8001)),
+        SystemType.NEUTRAL_ATOM:    int(os.environ.get("SIMULATOR_PUB_PORT_NEUTRAL_ATOM", 8002)),
+        SystemType.PHOTONIC:        int(os.environ.get("SIMULATOR_PUB_PORT_PHOTONIC", 8003)),
     }
 
     # ── Proxy re-publish ports (PilotOS subscribes here instead of 8xxx) ──
     PROXY_PUB_PORTS = {
-        SystemType.SUPERCONDUCTING: 9000,
-        SystemType.ION_TRAP: 9001,
-        SystemType.NEUTRAL_ATOM: 9002,
-        SystemType.PHOTONIC: 9003,
+        SystemType.SUPERCONDUCTING: int(os.environ.get("PROXY_PUB_PORT_SUPERCONDUCTING", 9000)),
+        SystemType.ION_TRAP:        int(os.environ.get("PROXY_PUB_PORT_ION_TRAP", 9001)),
+        SystemType.NEUTRAL_ATOM:    int(os.environ.get("PROXY_PUB_PORT_NEUTRAL_ATOM", 9002)),
+        SystemType.PHOTONIC:        int(os.environ.get("PROXY_PUB_PORT_PHOTONIC", 9003)),
     }
 
     # ── Network ──
-    SIMULATOR_HOST = "localhost"
+    SIMULATOR_HOST = os.environ.get("SIMULATOR_HOST", "localhost")
     BIND_ADDRESS = "0.0.0.0"
 
     # ── Dashboard ──

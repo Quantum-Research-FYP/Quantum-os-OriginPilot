@@ -1,0 +1,80 @@
+version: '3.8'
+
+services:
+  simulators:
+    build:
+      context: ./python_simulator
+      dockerfile: Dockerfile
+    container_name: quantum-simulators
+    ports:
+      # Expose on host as 7010-7013 & 8010-8013 to avoid conflicts on host
+      - "7010:7000"
+      - "7011:7001"
+      - "7012:7002"
+      - "7013:7003"
+      - "8010:8000"
+      - "8011:8001"
+      - "8012:8002"
+      - "8013:8003"
+    restart: unless-stopped
+
+  pilotprobe:
+    build:
+      context: ./pilotprobe
+      dockerfile: Dockerfile
+    container_name: pilotprobe-service
+    environment:
+      - SIMULATOR_HOST=simulators
+      # Make Proxy bind on ports 7000-7003 and 8000-8003
+      - PROXY_ROUTER_PORT_SUPERCONDUCTING=7000
+      - PROXY_ROUTER_PORT_ION_TRAP=7001
+      - PROXY_ROUTER_PORT_NEUTRAL_ATOM=7002
+      - PROXY_ROUTER_PORT_PHOTONIC=7003
+      - PROXY_PUB_PORT_SUPERCONDUCTING=8000
+      - PROXY_PUB_PORT_ION_TRAP=8001
+      - PROXY_PUB_PORT_NEUTRAL_ATOM=8002
+      - PROXY_PUB_PORT_PHOTONIC=8003
+      # Forward to simulators inside the container network on ports 7000-7003 and 8000-8003
+      - SIMULATOR_ROUTER_PORT_SUPERCONDUCTING=7000
+      - SIMULATOR_ROUTER_PORT_ION_TRAP=7001
+      - SIMULATOR_ROUTER_PORT_NEUTRAL_ATOM=7002
+      - SIMULATOR_ROUTER_PORT_PHOTONIC=7003
+      - SIMULATOR_PUB_PORT_SUPERCONDUCTING=8000
+      - SIMULATOR_PUB_PORT_ION_TRAP=8001
+      - SIMULATOR_PUB_PORT_NEUTRAL_ATOM=8002
+      - SIMULATOR_PUB_PORT_PHOTONIC=8003
+    ports:
+      # Expose PilotProbe on host as 7000-7003 (matching original simulator ports)
+      # and 8000-8003 (matching original simulator PUB ports)
+      - "7000:7000"
+      - "7001:7001"
+      - "7002:7002"
+      - "7003:7003"
+      - "8000:8000"
+      - "8001:8001"
+      - "8002:8002"
+      - "8003:8003"
+      - "9090:9090" # Dashboard
+    volumes:
+      - ./pilotprobe/pilotprobe.db:/app/pilotprobe.db
+    depends_on:
+      - simulators
+    restart: unless-stopped
+
+  pilotos:
+    image: pilotos:4.2
+    container_name: pilotos-server
+    ports:
+      - "10010:10080"
+      - "10020:5000"
+      - "10021:8080"
+    volumes:
+      - ./pilotos-deploy/pilotos-4.2/PilotOS-Config:/home/PilotAdmin/PilotOS/Config
+      - ./pilotos-deploy/pilotos-4.2/PilotOS-Log:/home/PilotAdmin/log
+      - /opt/PilotOS-Upgrade:/home/PilotAdmin/Upgrade/
+    extra_hosts:
+      # Points host.docker.internal inside container to the host machine IP
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      - pilotprobe
+    restart: unless-stopped
