@@ -28,7 +28,7 @@ document.querySelectorAll('.nav-item').forEach(item => {
     document.getElementById(viewId).classList.add('active');
 
     if (item.dataset.view === 'systems') refreshSystems();
-    if (item.dataset.view === 'profiler') loadRecentTasks();
+    if (item.dataset.view === 'profiler') { loadRecentTasks(); loadPipelineStats(); }
     if (item.dataset.view === 'validation') refreshValidation();
   });
 });
@@ -249,6 +249,77 @@ async function loadRecentTasks() {
       </div>`;
     }).join('');
   } catch (err) { console.error('Tasks error:', err); }
+}
+
+async function loadPipelineStats() {
+  try {
+    const res = await fetch('/api/profiler/pipeline');
+    const data = await res.json();
+    const container = document.getElementById('pipeline-stats-container');
+
+    if (!data || data.total_tasks === 0) {
+      container.innerHTML = '<p style="color:var(--text-dim);font-size:12px">No pipeline metrics available. Run some tasks first.</p>';
+      return;
+    }
+
+    let bottleneckColor = 'var(--text-dim)';
+    if (data.bottleneck_recommendation.includes('COMPILATION')) bottleneckColor = '#f59e0b';
+    if (data.bottleneck_recommendation.includes('SCHEDULING')) bottleneckColor = '#ef4444';
+    if (data.bottleneck_recommendation.includes('EXECUTION')) bottleneckColor = '#10b981';
+
+    container.innerHTML = `
+      <div class="profiler-summary" style="margin-bottom: 20px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;">
+        <div class="profiler-stat"><div class="label">Total Tasks</div><div class="value">${data.total_tasks}</div></div>
+        <div class="profiler-stat"><div class="label">Succeeded</div><div class="value" style="color:var(--success)">${data.successful_tasks}</div></div>
+        <div class="profiler-stat"><div class="label">Failed</div><div class="value" style="color:var(--error)">${data.failed_tasks}</div></div>
+        <div class="profiler-stat"><div class="label">Running</div><div class="value" style="color:var(--info)">${data.running_tasks}</div></div>
+      </div>
+
+      <div style="margin-bottom: 20px;">
+        <h4 style="font-size:11px;color:var(--text-dim);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">Avg Phase Latency</h4>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:2px;">
+              <span>Pending / Scheduling</span><span>${data.avg_pending_ms} ms</span>
+            </div>
+            <div style="background:var(--border);height:6px;border-radius:3px;overflow:hidden;">
+              <div style="background:var(--info);height:100%;width:${Math.min(100, (data.avg_pending_ms / (data.avg_turnaround_ms || 1)) * 100)}%;"></div>
+            </div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:2px;">
+              <span>Compilation</span><span>${data.avg_compile_ms} ms</span>
+            </div>
+            <div style="background:var(--border);height:6px;border-radius:3px;overflow:hidden;">
+              <div style="background:#f59e0b;height:100%;width:${Math.min(100, (data.avg_compile_ms / (data.avg_turnaround_ms || 1)) * 100)}%;"></div>
+            </div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:2px;">
+              <span>Execution</span><span>${data.avg_execution_ms} ms</span>
+            </div>
+            <div style="background:var(--border);height:6px;border-radius:3px;overflow:hidden;">
+              <div style="background:#10b981;height:100%;width:${Math.min(100, (data.avg_execution_ms / (data.avg_turnaround_ms || 1)) * 100)}%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:16px;font-size:11px;border-top:1px solid var(--border);padding-top:12px;">
+        <div><span style="color:var(--text-dim)">SLA Violations:</span> 
+          <span style="color:${data.pending_sla_violations > 0 ? 'var(--error)' : 'var(--success)'};font-weight:600;">
+            ${data.pending_sla_violations} Pending
+          </span>,
+          <span style="color:${data.compile_sla_violations > 0 ? 'var(--error)' : 'var(--success)'};font-weight:600;">
+            ${data.compile_sla_violations} Compile
+          </span>
+        </div>
+        <div style="margin-left:auto;"><span style="color:var(--text-dim)">Bottleneck Recommendation:</span> 
+          <span style="color:${bottleneckColor};font-weight:600;">${data.bottleneck_recommendation}</span>
+        </div>
+      </div>
+    `;
+  } catch (err) { console.error('Pipeline stats error:', err); }
 }
 
 async function profileTask() {

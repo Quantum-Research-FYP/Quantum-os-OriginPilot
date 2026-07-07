@@ -68,6 +68,11 @@ def create_app(store: MessageStore) -> FastAPI:
     async def get_stats():
         return store.get_stats()
 
+    # ── REST API: Pipeline Profiler ─────────────────────────────
+    @app.get("/api/profiler/pipeline")
+    async def get_pipeline_profile():
+        return store.get_pipeline_stats()
+
     # ── REST API: Task Profiler ─────────────────────────────────
     @app.get("/api/profiler/task/{task_id}")
     async def get_task_profile(task_id: str):

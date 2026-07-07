@@ -181,6 +181,194 @@ class MessageStore:
         finally:
             conn.close()
 
+    def get_pipeline_stats(self) -> Dict[str, Any]:
+        """
+        Analyze tasks to compute pipeline performance and latency bottlenecks.
+        
+        Calculates:
+          - Total tasks processed
+          - Success and failure counts
+          - Phase durations: Pending time, Compile time, Execution time, Turnaround time
+          - SLA violations
+          - Latency bottleneck recommendation
+        """
+        import json
+
+        conn = sqlite3.connect(self.db_path)
+        conn.row_factory = sqlite3.Row
+        try:
+            # Query all messages with a task_id ordered by task_id and timestamp
+            # This allows us to reconstruct the lifecycle of each task
+            rows = conn.execute(
+                "SELECT task_id, system_type, msg_type, direction, timestamp, parsed_fields "
+                "FROM messages WHERE task_id IS NOT NULL AND task_id != '' "
+                "ORDER BY task_id, timestamp ASC"
+            ).fetchall()
+
+            # Group rows by task_id
+            tasks = {}
+            for row in rows:
+                tid = row["task_id"]
+                if tid not in tasks:
+                    tasks[tid] = {
+                        "system_type": row["system_type"],
+                        "events": [],
+                    }
+                tasks[tid]["events"].append(row)
+
+            pending_times = []
+            compile_times = []
+            execution_times = []
+            turnaround_times = []
+
+            successful_tasks = 0
+            failed_tasks = 0
+            running_tasks = 0
+
+            compile_sla_violations = 0
+            pending_sla_violations = 0
+
+            COMPILE_SLA_MS = 5000.0  # 5 seconds
+            PENDING_SLA_MS = 2000.0  # 2 seconds
+
+            for tid, tdata in tasks.items():
+                t_submit = None
+                t_compiling = None
+                t_compiled = None
+                t_running = None
+                t_end = None
+                is_success = False
+                is_failed = False
+
+                # Scan events
+                for ev in tdata["events"]:
+                    mtype = ev["msg_type"]
+                    direction = ev["direction"]
+                    ts = ev["timestamp"]
+
+                    parsed = {}
+                    if ev["parsed_fields"]:
+                        try:
+                            parsed = json.loads(ev["parsed_fields"])
+                        except Exception:
+                            pass
+
+                    tstatus = parsed.get("TaskStatus")
+                    err_code = parsed.get("ErrCode")
+
+                    # 1. Submission
+                    if mtype == "MsgTask" and direction == "REQUEST":
+                        if t_submit is None:
+                            t_submit = ts
+
+                    # 2. Status Transitions
+                    if tstatus == 1:  # PENDING
+                        if t_submit is None:
+                            t_submit = ts
+                    elif tstatus == 7:  # COMPILING
+                        if t_compiling is None:
+                            t_compiling = ts
+                    elif tstatus == 8:  # COMPILED
+                        if t_compiled is None:
+                            t_compiled = ts
+                    elif tstatus == 2:  # RUNNING
+                        if t_running is None:
+                            t_running = ts
+                    elif tstatus == 5:  # SUCCESSED
+                        t_end = ts
+                        is_success = True
+                    elif tstatus == 4:  # FAILED
+                        t_end = ts
+                        is_failed = True
+
+                    # Also check message types directly as fallback
+                    if mtype == "MsgTaskResult":
+                        t_end = ts
+                        if err_code == 0:
+                            is_success = True
+                        else:
+                            is_failed = True
+                    elif mtype == "MsgTaskAck" and direction == "RESPONSE":
+                        if err_code is not None and err_code != 0:
+                            t_end = ts
+                            is_failed = True
+
+                # Fallback: if we don't have t_submit, use the first event's timestamp
+                if t_submit is None and tdata["events"]:
+                    t_submit = tdata["events"][0]["timestamp"]
+
+                # If the task completed (or failed)
+                if t_submit is not None:
+                    if is_success:
+                        successful_tasks += 1
+                    elif is_failed:
+                        failed_tasks += 1
+                    else:
+                        running_tasks += 1
+
+                    if t_end is not None:
+                        # Turnaround time
+                        turnaround_ms = (t_end - t_submit) * 1000.0
+                        turnaround_times.append(turnaround_ms)
+
+                        # Pending duration: time from submission to compile or run
+                        t_next = t_compiling or t_running or t_end
+                        if t_next > t_submit:
+                            pending_ms = (t_next - t_submit) * 1000.0
+                            pending_times.append(pending_ms)
+                            if pending_ms > PENDING_SLA_MS:
+                                pending_sla_violations += 1
+
+                        # Compile duration: time from compiling to compiled (or run if it goes straight to running)
+                        if t_compiling is not None:
+                            t_comp_end = t_compiled or t_running or t_end
+                            if t_comp_end > t_compiling:
+                                compile_ms = (t_comp_end - t_compiling) * 1000.0
+                                compile_times.append(compile_ms)
+                                if compile_ms > COMPILE_SLA_MS:
+                                    compile_sla_violations += 1
+
+                        # Execution duration: time from running to completion
+                        if t_running is not None and t_end > t_running:
+                            exec_ms = (t_end - t_running) * 1000.0
+                            execution_times.append(exec_ms)
+
+            # Calculate averages
+            avg_pending = sum(pending_times) / len(pending_times) if pending_times else 0.0
+            avg_compile = sum(compile_times) / len(compile_times) if compile_times else 0.0
+            avg_execution = sum(execution_times) / len(execution_times) if execution_times else 0.0
+            avg_turnaround = sum(turnaround_times) / len(turnaround_times) if turnaround_times else 0.0
+
+            # Determine bottleneck recommendation
+            bottleneck = "None"
+            max_val = 0.0
+            if len(turnaround_times) > 0:
+                if avg_compile > max_val:
+                    max_val = avg_compile
+                    bottleneck = "COMPILATION (Optimize pulse compiler parameters)"
+                if avg_pending > max_val:
+                    max_val = avg_pending
+                    bottleneck = "SCHEDULING / QUEUE DEPTH (Increase QPU slot capacity)"
+                if avg_execution > max_val:
+                    max_val = avg_execution
+                    bottleneck = "QPU EXECUTION / SIMULATOR (Reduce simulator network overhead)"
+
+            return {
+                "total_tasks": len(tasks),
+                "successful_tasks": successful_tasks,
+                "failed_tasks": failed_tasks,
+                "running_tasks": running_tasks,
+                "avg_pending_ms": round(avg_pending, 1),
+                "avg_compile_ms": round(avg_compile, 1),
+                "avg_execution_ms": round(avg_execution, 1),
+                "avg_turnaround_ms": round(avg_turnaround, 1),
+                "pending_sla_violations": pending_sla_violations,
+                "compile_sla_violations": compile_sla_violations,
+                "bottleneck_recommendation": bottleneck,
+            }
+        finally:
+            conn.close()
+
     # ── Internal ────────────────────────────────────────────────────
 
     def _init_db(self):
