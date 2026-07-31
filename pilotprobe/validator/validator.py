@@ -123,11 +123,13 @@ class ProtocolValidator:
         sys = msg.system_type
 
         # Track request SN → timestamp for response pairing
-        if msg.direction == "REQUEST" and msg.sn is not None:
+        # Guard against unhashable SN types (e.g. dict/list from fuzz mutations)
+        sn_hashable = msg.sn is not None and isinstance(msg.sn, (int, str, float))
+        if msg.direction == "REQUEST" and sn_hashable:
             self._pending_requests[sys][msg.sn] = msg.timestamp
 
         # Check response timing
-        if msg.direction == "RESPONSE" and msg.sn is not None:
+        if msg.direction == "RESPONSE" and sn_hashable:
             req_time = self._pending_requests[sys].pop(msg.sn, None)
             if req_time:
                 elapsed = msg.timestamp - req_time
@@ -147,8 +149,8 @@ class ProtocolValidator:
             if self.registry.requires_auth(sys) and not self._auth_state[sys]:
                 warnings.append("No MsgGetToken before MsgTask (auth required)")
 
-            # Duplicate TaskId check
-            if msg.task_id:
+            # Duplicate TaskId check (guard against unhashable types from fuzz)
+            if msg.task_id and isinstance(msg.task_id, str):
                 if msg.task_id in self._task_ids_seen[sys]:
                     errors.append(f"Duplicate TaskId: {msg.task_id[:16]}")
                 else:
